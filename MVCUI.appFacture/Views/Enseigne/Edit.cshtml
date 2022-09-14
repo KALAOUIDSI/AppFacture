@@ -1,0 +1,209 @@
+﻿@model Domain.appFacture.FACTENSEIGNE
+
+@{
+    string actionName = ViewContext.RouteData.GetRequiredString("action");
+    ViewBag.Title = "Enseigne : " + actionName;
+}
+<div class="row">
+    <div class="col-md-12">
+        <ul class="page-breadcrumb breadcrumb" style="margin-top: 0px; margin-bottom: 2px; padding-left: 0px; padding-right: 0px;">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="@Url.Action("Index", "Home")">
+                    Accueil
+                </a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="@Url.Action("Index")">
+                    Types facture
+                </a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <i class="fa fa-bars"></i>
+                <a href="#">
+                    Enseigne <small>@actionName</small>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="portlet box yellow">
+    <div class="portlet-title" style="padding-top: 0px;">
+        @*<div class="caption">
+            <i class="fa fa-reorder"></i>
+            Groupe <small>@actionName</small>
+        </div>*@
+    </div>
+    <div class="portlet-body form">
+        <!-- BEGIN FORM-->
+        @using (Html.BeginForm("Edit", "Enseigne", FormMethod.Post, new { @class = "EditForm form-horizontal" }))
+        {
+            @Html.HiddenFor(c => c.IDENSEIGNE)
+            <div class="form-body">
+                <div class="alert alert-danger display-hide">
+                    <button class="close" data-close="alert"></button>
+                    Vous avez des erreurs, merci de vérifier!
+                </div>
+                <div class="alert alert-success display-hide">
+                    <button class="close" data-close="alert"></button>
+                    Données correctes! transmission en cours!
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Libellé<span class="required">*</span></label>
+
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(c => c.LIBELLEENSEIGNE, new { @class = "form-control required" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Code agresso<span class="required">*</span></label>
+
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(c => c.CODE, new { @class = "form-control required" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">ICE<span class="required">*</span></label>
+
+                    <div class="col-md-4">
+
+                        @Html.TextBoxFor(c => c.ICE, new { @class = "form-control required number" })
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Ligne pied 1</label>
+
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(c => c.PLINE1, new { @class = "form-control" })
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Ligne pied 2</label>
+
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(c => c.PLINE2, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Ligne pied 3</label>
+
+                    <div class="col-md-8">
+
+                        @Html.TextBoxFor(c => c.PLINE3, new { @class = "form-control" })
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Ligne pied 4</label>
+
+                    <div class="col-md-8">
+
+                        @Html.TextBoxFor(c => c.PLINE4, new { @class = "form-control" })
+
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions fluid">
+                <div class="col-md-offset-3 col-md-9">
+
+                    <button type="button" class="btn submit yellow">
+                        @if (actionName == "Create")
+                        {<text>Insérer</text>}
+                        else
+                        {<text>Modifier</text>}</button>
+                    <a href="@Url.Action("Index", new { keepFilters = true })" class="btn default">Annuler</a>
+
+                </div>
+            </div>
+        }
+        <!-- END FORM-->
+    </div>
+</div>
+@section Scripts
+{
+    <script type="text/javascript" src="@Url.Content("~/assets/plugins/jquery-validation/dist/jquery.validate.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/assets/plugins/jquery-validation/dist/additional-methods.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/assets/plugins/select2/select2.min.js")"></script>
+    <script>
+    jQuery(document).ready(function () {
+
+        $('.submit').click(function (e) {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("isIceUnique", "Enseigne")",
+                        content: "application/text; charset=utf-8",
+                        data: { ICE: $('#ICE').val(), IDENSEIGNE: $('#IDENSEIGNE').val() },
+                    success: function (d) {
+                        if (d == "True") {
+                            $('.EditForm').submit();
+                    } else{
+                            alert("L'ice existe déja pour un autre enseigne, merci de saisir un autre !!!")
+                    }
+                },
+                    error: function (xhr, textStatus, errorThrown) {
+                        // TODO: Show error
+                        alert('Erreur réseau : merci de réessayer');
+                    }
+                });
+          });
+
+            jQuery.extend(jQuery.validator.messages, {
+                required: "Ce champ est obligatoire.",
+                number: "Merci d'entrer un chiffre valide.",
+                minlength: "L'ICE doit être de longueur {0}",
+                maxlength: "L'ICE doit être de longueur {0}"
+            });
+
+            $('.EditForm').validate({
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block', // default input error message class
+                focusInvalid: false, // do not focus the last invalid input
+                ignore: "",
+                rules: {
+                    ICE: {
+                        minlength: 15,
+                        maxlength: 15
+                    }
+                },
+                invalidHandler: function (event, validator) { //display error alert on form submit
+                    $('.alert-success').hide();
+                    $('.alert-danger').show();
+                },
+                highlight: function (element) { // hightlight error inputs
+                    $(element)
+                        .closest('.form-group').addClass('has-error'); // set error class to the control group
+                },
+                unhighlight: function (element) { // revert the change done by hightlight
+
+                },
+                success: function (label, element) {
+                    var icon = $(element).parent('.input-icon').children('i');
+                    $(element).closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
+                    icon.removeClass("fa-warning").addClass("fa-check");
+                }
+            });
+
+            $('.compteice').each(function () {
+                $(this).rules('add', {
+                    minlength: 8,
+                    maxlength: 8
+                });
+            });
+
+        });
+    </script>
+}
+@section Styles
+{
+    <style>
+        .page-content .page-breadcrumb.breadcrumb {
+            background-color: #ffb848;
+        }
+    </style>
+}

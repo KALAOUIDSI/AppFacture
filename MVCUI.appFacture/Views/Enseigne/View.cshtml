@@ -1,0 +1,103 @@
+﻿@model Domain.appFacture.FACTENSEIGNE
+
+@{
+    ViewBag.Title = "Enseigne : Visualiser";
+}
+<div class="row">
+    <div class="col-md-12">
+        <ul class="page-breadcrumb breadcrumb" style="margin-top: 0px; margin-bottom: 2px; padding-left: 0px; padding-right: 0px;">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="@Url.Action("Index", "Home")">
+                    Accueil
+                </a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="@Url.Action("Index")">
+                    Enseigne
+                </a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <i class="fa fa-bars"></i>
+                <a href="#">
+                    Enseigne <small>Visualiser</small>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="portlet box yellow">
+    <div class="portlet-title" style="padding-top: 0px;">
+        @*<div class="caption">
+            <i class="fa fa-reorder"></i>
+            Groupe <small>Visualiser</small>
+        </div>*@
+    </div>
+
+    <div class="portlet-body form">
+        <div class="EditForm form-horizontal">
+            <div class="form-body">
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Libellé enseigne</label>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(c => c.LIBELLEENSEIGNE, new { @class = "form-control", @readonly = "readonly" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Code agresso</label>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(c => c.CODE, new { @class = "form-control", @readonly = "readonly" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">ICE</label>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(c => c.ICE, new { @class = "form-control", @readonly = "readonly" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Ligne pied 1</label>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(c => c.PLINE1, new { @class = "form-control", @readonly = "readonly" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Ligne pied 2</label>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(c => c.PLINE2, new { @class = "form-control", @readonly = "readonly" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Ligne pied 3</label>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(c => c.PLINE3, new { @class = "form-control", @readonly = "readonly" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Ligne pied 4</label>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(c => c.PLINE4, new { @class = "form-control", @readonly = "readonly" })
+                    </div>
+                </div>
+
+            </div>
+            <div class="form-actions fluid">
+                <div class="col-md-offset-3 col-md-9">
+                    <a href="@Url.Action("Index", new { keepFilters = true })" class="btn default">Retour</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Styles
+{
+    <style>
+        .page-content .page-breadcrumb.breadcrumb {
+            background-color: #ffb848;
+        }
+    </style>
+}

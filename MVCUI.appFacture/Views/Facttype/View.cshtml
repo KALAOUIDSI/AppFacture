@@ -1,0 +1,320 @@
+﻿@model Domain.appFacture.FACTTYPE
+
+@{
+    ViewBag.Title = "Type facture : Visualiser";
+}
+@*<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="@Url.Action("Index","Home")">Accueil
+                </a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="@Url.Action("Index")">Type facture
+                </a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>*@
+<div class="row">
+    <div class="col-md-12">
+        <ul class="page-breadcrumb breadcrumb" style="margin-top: 0px; margin-bottom: 2px; padding-left: 0px; padding-right: 0px;">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="@Url.Action("Index", "Home")">
+                    Accueil
+                </a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="@Url.Action("Index")">
+                    Types facture
+                </a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <i class="fa fa-bars"></i>
+                <a href="#">
+                    Type facture <small>Visualiser</small>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="portlet box yellow">
+    <div class="portlet-title" style="padding-top: 0px;">
+        @*<div class="caption">
+            <i class="fa fa-reorder"></i>
+            Groupe <small>Visualiser</small>
+        </div>*@
+    </div>
+
+    <div class="portlet-body form">
+        <div class="EditForm form-horizontal">
+            <div class="form-body">
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Type facture</label>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(c => c.LIBELLE, new { @class = "form-control", @readonly = "readonly" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Categorie</label>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(c => c.FACTTYPECATEGORIE.LIBELLE, new { @class = "form-control", @readonly = "readonly" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Vendeur<span class="required">*</span></label>
+
+                    <div class="col-md-4">
+                        <table class="table table-striped table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        #
+                                    </th>
+                                    <th>
+                                        Enseigne
+                                    </th>
+                                    <th>
+                                        Compte
+                                    </th>
+                                    <th>
+                                        TVA 20%
+                                    </th>
+                                    <th>
+                                        TVA 14%
+                                    </th>
+                                    <th>
+                                        TVA 10%
+                                    </th>
+                                    <th>
+                                        TVA 7%
+                                    </th>
+                                    <th>
+                                        TVA PPRF
+                                    </th>
+                                    <th>
+                                        Client
+                                    </th>
+                                    @if (@Model.FACTTYPECATEGORIE.LIBELLE == "location gerance")
+                                    {
+                                    <th>
+                                        TSC
+                                    </th>
+                                    <th>
+                                        TSC TAXES
+                                    </th>
+                                    }
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var ens in ViewBag.listenseigne)
+                                {
+                                    bool mabool = false;
+                                    foreach (var item in Model.FACTASSOGFACTTYPEENSEIGNE)
+                                    {
+                                        if (item.IDENSEIGNE != ens.IDENSEIGNE)
+                                        {
+                                            continue;
+                                        }
+                                        else
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @ens.IDENSEIGNE
+                                                </td>
+                                                <td>
+                                                    @ens.LIBELLEENSEIGNE
+                                                </td>
+                                                <td>
+                                                    @item.COMPTEVENDEUR
+                                                </td>
+                                                <td>
+                                                    @item.COMPTEVENDTVA20
+                                                </td>
+                                                <td>
+                                                    @item.COMPTEVENDTVA14
+                                                </td>
+                                                <td>
+                                                    @item.COMPTEVENDTVA10
+                                                </td>
+                                                <td>
+                                                    @item.COMPTEVENDTVA7
+                                                </td>
+                                                <td>
+                                                    @item.COMPTEVENDTVAIPPRF
+                                                </td>
+                                                <td>
+                                                    @item.COMPTEVENDCLIENT
+                                                </td>
+                                                @if (@Model.FACTTYPECATEGORIE.LIBELLE == "location gerance")
+                                                {
+                                                <td>
+                                                    @item.COMPTEVENDTSC
+                                                </td>
+                                                <td>
+                                                    @item.COMPTEVENDTSCTAX
+                                                </td>
+                                                }
+                                            </tr>
+                                            mabool = true;
+                                            break;
+                                        }
+                                    }
+                                    if (!mabool)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @ens.IDENSEIGNE
+                                            </td>
+                                            <td>
+                                                @ens.LIBELLEENSEIGNE
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            @if (@Model.FACTTYPECATEGORIE.LIBELLE == "location gerance"){
+                                            <td></td>
+                                            <td></td>
+                                            }
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Acheteur<span class="required">*</span></label>
+
+                    <div class="col-md-4">
+                        <table class="table table-striped table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        #
+                                    </th>
+                                    <th>
+                                        Enseigne
+                                    </th>
+                                    <th>
+                                        Compte
+                                    </th>
+                                    <th>
+                                        TVA 20%
+                                    </th>
+                                    <th>
+                                        TVA 14%
+                                    </th>
+                                    <th>
+                                        TVA 10%
+                                    </th>
+                                    <th>
+                                        TVA 7%
+                                    </th>
+                                    <th>
+                                        TVA PPRF
+                                    </th>
+                                    <th>
+                                        Fournisseur
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var ens in ViewBag.listenseigne)
+                                {
+                                    bool mabool = false;
+                                    foreach (var item in Model.FACTASSOGFACTTYPEENSEIGNE)
+                                    {
+                                        if (item.IDENSEIGNE != ens.IDENSEIGNE)
+                                        {
+                                            continue;
+                                        }
+                                        else
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @ens.IDENSEIGNE
+                                                </td>
+                                                <td>
+                                                    @ens.LIBELLEENSEIGNE
+                                                </td>
+                                                <td>
+                                                    @item.COMPTEACHETEUR
+                                                </td>
+                                                <td>
+                                                    @item.COMPTEACHETTVA20
+                                                </td>
+                                                <td>
+                                                    @item.COMPTEACHETTVA14
+                                                </td>
+                                                <td>
+                                                    @item.COMPTEACHETTVA10
+                                                </td>
+                                                <td>
+                                                    @item.COMPTEACHETTVA7
+                                                </td>
+                                                <td>
+                                                    @item.COMPTEACHETTVAIPPRF
+                                                </td>
+                                                <td>
+                                                    @item.COMPTEACHETFRS
+                                                </td>
+                                            </tr>
+                                            mabool = true;
+                                            break;
+                                        }
+                                    }
+                                    if (!mabool)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @ens.IDENSEIGNE
+                                            </td>
+                                            <td>
+                                                @ens.LIBELLEENSEIGNE
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+            <div class="form-actions fluid">
+                <div class="col-md-offset-3 col-md-9">
+                    <a href="@Url.Action("Index", new { keepFilters = true })" class="btn default">Retour</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Styles
+{
+    <style>
+        .page-content .page-breadcrumb.breadcrumb {
+            background-color: #ffb848;
+        }
+    </style>
+}

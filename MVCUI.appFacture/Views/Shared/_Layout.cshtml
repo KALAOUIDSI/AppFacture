@@ -1,0 +1,224 @@
+﻿<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en" class="no-js">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="@Url.Content("~/assets/plugins/font-awesome/css/font-awesome.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/assets/plugins/bootstrap/css/bootstrap.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/assets/plugins/uniform/css/uniform.default.css")" rel="stylesheet" type="text/css" />
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN PAGE LEVEL STYLES -->
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/assets/plugins/select2/select2.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/assets/plugins/select2/select2-metronic.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/assets/plugins/data-tables/DT_bootstrap.css")">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/assets/plugins/bootstrap-toastr/toastr.min.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/assets/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css")">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/assets/plugins/bootstrap-modal/css/bootstrap-modal.css")" />
+    <!-- END PAGE LEVEL SCRIPTS -->
+    <!-- BEGIN THEME STYLES -->
+    <link href="@Url.Content("~/assets/css/style-metronic.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/assets/css/style.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/assets/css/style-responsive.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/assets/css/plugins.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/assets/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/assets/css/themes/default.css")" rel="stylesheet" type="text/css" id="style_color" />
+    <link href="@Url.Content("~/assets/css/custom.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/assets/plugins/pace/themes/pace-theme-big-counter.css")" rel="stylesheet" type="text/css" />
+    <!-- END THEME STYLES -->
+
+</head>
+<body class="page-header-fixed">
+    <div class="header navbar navbar-fixed-top mega-menu">
+        <div class="header-inner">
+            <!-- BEGIN LOGO -->
+            @*<a href="@Url.Action("Index","Home")">
+                    <img src="@Url.Content("~/assets/img/logo.png")" alt="logo" class="img-responsive" style="max-height: 30px; background-color: white; float: left; margin: 6px;" />
+                </a>*@
+            <a href="@Url.Action("Index","Home")">
+                <img src="@Url.Content("~/assets/img/fact1.png")" alt="logo" class="img-responsive" style="max-height: 30px; background-color: white; float: left; margin: 6px;" />
+            </a>
+
+            <a href="javascript:;" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <img src="@Url.Content("~/assets/img/menu-toggler.png")" alt="">
+            </a>
+            <!-- END LOGO -->
+            <!-- BEGIN MENU -->
+            <div class="hor-menu hidden-sm hidden-xs">
+                <ul class="nav navbar-nav">
+                    <li class="classic-menu-dropdown">
+                        <a style="color:white" href="@Url.Action("Index","Home")">
+                            Gestion des factures
+                            <span class="selected"></span>
+                        </a>
+                    </li>
+                    <li class="mega-menu-dropdown">
+                        <a href="#" data-hover="dropdown" data-close-others="true" class="dropdown-toggle">
+                            Menu <i class="fa fa-angle-down"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <!-- Content container to add padding -->
+                                <div class="mega-menu-content">
+                                    <div class="row">
+                                        @if (User.IsInRole("DEMANDE"))
+                                        {
+                                            <ul class="col-md-4 mega-menu-submenu">
+                                                <li>
+                                                    <h3>Demandes factures</h3>
+                                                </li>
+                                                @if (User.IsInRole("DEMANDE"))
+                                                {
+                                                    <li>
+                                                        <a href="@Url.Action("Index", "Demande")">
+                                                            <i class="fa fa-angle-right"></i>Demandes facture
+                                                        </a>
+                                                    </li>
+                                                }
+                                            </ul>
+                                        }
+
+                                        @if (User.IsInRole("UTILISATEUR") | User.IsInRole("GROUPE") | User.IsInRole("INTERFACE"))
+                                        {
+                                            <ul class="col-md-4 mega-menu-submenu">
+                                                <li>
+                                                    <h3>Gestion des tiers</h3>
+                                                </li>
+                                                @if (User.IsInRole("UTILISATEUR"))
+                                                {
+                                                    <li>
+                                                        <a href="@Url.Action("Index","Utilisateur")">
+                                                            <i class="fa fa-angle-right"></i>Utilisateurs
+                                                        </a>
+                                                    </li>
+                                                }
+                                                @if (User.IsInRole("GROUPE"))
+                                                {
+                                                    <li>
+                                                        <a href="@Url.Action("Index","Groupe")">
+                                                            <i class="fa fa-angle-right"></i>Groupes
+                                                        </a>
+                                                    </li>
+                                                }
+                                                @if (User.IsInRole("SITE"))
+                                                {
+                                                    <li>
+                                                        <a href="@Url.Action("Index","Site")">
+                                                            <i class="fa fa-angle-right"></i>Sites
+                                                        </a>
+                                                    </li>
+                                                }
+                                                @*@if (User.IsInRole("INTERFACE"))
+                                                    {
+                                                    <li>
+                                                        <a href="@Url.Action("Index","Interface")">
+                                                            <i class="fa fa-angle-right"></i>Interfaces
+                                                        </a>
+                                                    </li>
+                                                    }*@
+                                            </ul>
+                                        }
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            </div>
+            <!-- END MENU -->
+            <ul class="nav navbar-nav pull-right">
+                <!-- BEGIN USER LOGIN DROPDOWN -->
+                <li class="dropdown user">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" style="padding: 10px 10px;">
+                        <span class="username hidden-1024" style="font-size: 14px;  line-height: 20px;color: #FFFFFF;outline: 0 none;">
+                            Utilisateur : @ClaimsPrincipal.Current.FindFirst(ClaimTypes.Name).Value
+                            @{
+                                string Magasin = "";
+                                try
+                                {
+                                    Magasin = ClaimsPrincipal.Current.FindFirst(ClaimTypes.Actor).Value;
+                                }
+                                catch (Exception ex)
+                                {
+                                    Response.Redirect(Url.Action("Login"));
+                                }
+
+                            }
+                            @if (Magasin != "")
+                            {
+                                <text>/@Magasin</text>
+                            }
+                        </span>
+                        <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="@Url.Action("LogOff","Home")">
+                                <i class="fa fa-key"></i> Se déconnecter
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- END USER LOGIN DROPDOWN -->
+            </ul>
+        </div>
+    </div>
+    <div class="page-container">
+        <div class="page-content-wrapper">
+            <div class="page-content">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+    <!-- END FOOTER -->
+    <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+    <!-- BEGIN CORE PLUGINS -->
+    <!--[if lt IE 9]>
+    <script src="@Url.Content("~/assets/plugins/respond.min.js")"></script>
+    <script src="@Url.Content("~/assets/plugins/excanvas.min.js")"></script>
+    <![endif]-->
+    <script src="@Url.Content("~/assets/plugins/jquery-1.10.2.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/assets/plugins/jquery-migrate-1.2.1.min.js")" type="text/javascript"></script>
+    <!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+    <script src="@Url.Content("~/assets/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/assets/plugins/bootstrap/js/bootstrap.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/assets/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/assets/plugins/jquery.blockui.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/assets/plugins/jquery.cokie.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/assets/plugins/uniform/jquery.uniform.min.js")" type="text/javascript"></script>
+    <!-- END CORE PLUGINS -->
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <script type="text/javascript" src="@Url.Content("~/assets/plugins/select2/select2.min.js")"></script>
+
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script src="@Url.Content("~/assets/plugins/bootstrap-toastr/toastr.min.js")"></script>
+    <script src="@Url.Content("~/assets/scripts/custom/ui-toastr.js")"></script>
+    <script src="@Url.Content("~/assets/scripts/core/app.js")"></script>
+    <!-- END PAGE LEVEL SCRIPTS -->
+    <script>
+        jQuery(document).ready(function () {
+            // initiate layout and plugins
+            App.init();
+            $('.date').datepicker({
+                dateFormat: 'dd/mm/yy'
+            });
+
+        });
+    </script>
+    @RenderSection("Scripts", false)
+    <!-- END JAVASCRIPTS -->
+    @RenderSection("Styles", false)
+</body>
+</html>

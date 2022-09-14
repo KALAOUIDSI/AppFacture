@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<IdentityRoot>
+  <!-- Add identity entries here. Syntax:  -->
+  <EDMX Name="Model1.edmx">
+    <IdentityEntry Table="FACTUSER" Column="IDUTILISATEUR"/>
+    <IdentityEntry Table="FACTGROUPE" Column="IDGROUPE"/>
+    <IdentityEntry Table="FACTINTERFACE" Column="IDINTERFACE"/>
+    <IdentityEntry Table="FACTSITE" Column="IDSITE"/>
+    <IdentityEntry Table="FACTENSEIGNE" Column="IDENSEIGNE"/>
+    <IdentityEntry Table="FACTDEMANDE" Column="IDDEMANDE"/>
+    <IdentityEntry Table="FACTDEMANDEDETAIL" Column="IDDEMANDEDET"/>
+    <IdentityEntry Table="FACTTYPE" Column="IDFACTTYPE"/>
+    <IdentityEntry Table="FACTDEMANDESTATUS" Column="STATUS"/>
+    <IdentityEntry Table="FACTPIECEJOINTE" Column="IDPIECEJOINTE"/>
+    <IdentityEntry Table="FACTCLIENT" Column="IDCLIENT"/>
+    <IdentityEntry Table="FACTFACTURE" Column="IDFACTURE"/>
+    <IdentityEntry Table="FACTFACTUREDETAIL" Column="IDFACTUREDET"/>
+    <IdentityEntry Table="FACTFACTPIECEJOINTE" Column="IDPIECEJOINTE"/>
+    <IdentityEntry Table="ACRTRANS" Column="IDACRTRANS"/>
+    <IdentityEntry Table="FACRAPPORTGEN" Column="IDRAPPORT"/>
+    <IdentityEntry Table="OTOPACHETEUR" Column="IDACHETEUR"/>
+    <IdentityEntry Table="OTOPVENDEUR" Column="IDVENDEUR"/>
+    <IdentityEntry Table="OTOPFACTURE" Column="IDDEMANDE"/>
+    <IdentityEntry Table="OTOPFACTUREDETAIL" Column="IDDEMANDEDET"/>
+    
+  </EDMX>
+
+</IdentityRoot>

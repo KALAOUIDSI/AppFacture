@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DataSetTva" targetNamespace="http://tempuri.org/DataSetTva.xsd" xmlns:mstns="http://tempuri.org/DataSetTva.xsd" xmlns="http://tempuri.org/DataSetTva.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DataSetTva" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DataSetTva" msprop:Generator_UserDSName="DataSetTva">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="totauxtva" msprop:Generator_TableClassName="totauxtvaDataTable" msprop:Generator_TableVarName="tabletotauxtva" msprop:Generator_RowChangedName="totauxtvaRowChanged" msprop:Generator_TablePropName="totauxtva" msprop:Generator_RowDeletingName="totauxtvaRowDeleting" msprop:Generator_RowChangingName="totauxtvaRowChanging" msprop:Generator_RowEvHandlerName="totauxtvaRowChangeEventHandler" msprop:Generator_RowDeletedName="totauxtvaRowDeleted" msprop:Generator_RowClassName="totauxtvaRow" msprop:Generator_UserTableName="totauxtva" msprop:Generator_RowEvArgName="totauxtvaRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="designation" msprop:Generator_ColumnVarNameInTable="columndesignation" msprop:Generator_ColumnPropNameInRow="designation" msprop:Generator_ColumnPropNameInTable="designationColumn" msprop:Generator_UserColumnName="designation" type="xs:string" minOccurs="0" />
+              <xs:element name="txtva" msprop:Generator_ColumnVarNameInTable="columntxtva" msprop:Generator_ColumnPropNameInRow="txtva" msprop:Generator_ColumnPropNameInTable="txtvaColumn" msprop:Generator_UserColumnName="txtva" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ht" msprop:Generator_ColumnVarNameInTable="columnht" msprop:Generator_ColumnPropNameInRow="ht" msprop:Generator_ColumnPropNameInTable="htColumn" msprop:Generator_UserColumnName="ht" type="xs:decimal" minOccurs="0" />
+              <xs:element name="taxe" msprop:Generator_ColumnVarNameInTable="columntaxe" msprop:Generator_ColumnPropNameInRow="taxe" msprop:Generator_ColumnPropNameInTable="taxeColumn" msprop:Generator_UserColumnName="taxe" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ttc" msprop:Generator_ColumnVarNameInTable="columnttc" msprop:Generator_ColumnPropNameInRow="ttc" msprop:Generator_ColumnPropNameInTable="ttcColumn" msprop:Generator_UserColumnName="ttc" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TTVAIPPRF" msprop:Generator_ColumnVarNameInTable="columnTTVAIPPRF" msprop:Generator_ColumnPropNameInRow="TTVAIPPRF" msprop:Generator_ColumnPropNameInTable="TTVAIPPRFColumn" msprop:Generator_UserColumnName="TTVAIPPRF" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="unefacture" msprop:Generator_TableClassName="unefactureDataTable" msprop:Generator_TableVarName="tableunefacture" msprop:Generator_TablePropName="unefacture" msprop:Generator_RowDeletingName="unefactureRowDeleting" msprop:Generator_RowChangingName="unefactureRowChanging" msprop:Generator_RowEvHandlerName="unefactureRowChangeEventHandler" msprop:Generator_RowDeletedName="unefactureRowDeleted" msprop:Generator_UserTableName="unefacture" msprop:Generator_RowChangedName="unefactureRowChanged" msprop:Generator_RowEvArgName="unefactureRowChangeEvent" msprop:Generator_RowClassName="unefactureRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="tmntht" msprop:Generator_ColumnVarNameInTable="columntmntht" msprop:Generator_ColumnPropNameInRow="tmntht" msprop:Generator_ColumnPropNameInTable="tmnthtColumn" msprop:Generator_UserColumnName="tmntht" type="xs:decimal" minOccurs="0" />
+              <xs:element name="tmnttva" msprop:Generator_ColumnVarNameInTable="columntmnttva" msprop:Generator_ColumnPropNameInRow="tmnttva" msprop:Generator_ColumnPropNameInTable="tmnttvaColumn" msprop:Generator_UserColumnName="tmnttva" type="xs:decimal" minOccurs="0" />
+              <xs:element name="tmntttc" msprop:Generator_ColumnVarNameInTable="columntmntttc" msprop:Generator_ColumnPropNameInRow="tmntttc" msprop:Generator_ColumnPropNameInTable="tmntttcColumn" msprop:Generator_UserColumnName="tmntttc" type="xs:decimal" minOccurs="0" />
+              <xs:element name="mntlettres" msprop:Generator_ColumnVarNameInTable="columnmntlettres" msprop:Generator_ColumnPropNameInRow="mntlettres" msprop:Generator_ColumnPropNameInTable="mntlettresColumn" msprop:Generator_UserColumnName="mntlettres" type="xs:string" minOccurs="0" />
+              <xs:element name="MNTTVAIPPRF" msprop:Generator_ColumnVarNameInTable="columnMNTTVAIPPRF" msprop:Generator_ColumnPropNameInRow="MNTTVAIPPRF" msprop:Generator_ColumnPropNameInTable="MNTTVAIPPRFColumn" msprop:Generator_UserColumnName="MNTTVAIPPRF" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,172 @@
+﻿@model Domain.appFacture.FACTUSER
+
+@{
+    ViewBag.Title = "Utilisateur : Visualiser";
+}
+@*<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="@Url.Action("Index","Home")">Accueil
+                </a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="@Url.Action("Index")">Utilisateurs
+                </a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>*@
+<div class="row">
+    <div class="col-md-12">
+        <ul class="page-breadcrumb breadcrumb" style="margin-top: 0px; margin-bottom: 2px; padding-left: 0px; padding-right: 0px;">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="@Url.Action("Index", "Home")">
+                    Accueil
+                </a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="@Url.Action("Index")">
+                    Utilisateurs
+                </a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <i class="fa fa-reorder"></i>
+                <a href="#">
+                    Utilisateur <small>Visualiser</small>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="portlet box green">
+    <div class="portlet-title" style="padding-top: 0px;">
+        @*<div class="caption">
+                <i class="fa fa-reorder"></i>
+                Utilisateur <small>Visualiser</small>
+            </div>*@
+    </div>
+
+    <div class="portlet-body form">
+        <div class="EditForm form-horizontal">
+            <div class="form-body">
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Nom</label>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(c => c.NOM, new { @class = "form-control", @readonly = "readonly" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Prénom</label>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(c => c.PRENOM, new { @class = "form-control", @readonly = "readonly" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">E-mail</label>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(c => c.EMAIL, new { @class = "form-control", @readonly = "readonly" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Identifiant</label>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(c => c.LOGIN, new { @class = "form-control", @readonly = "readonly" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Site</label>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(c => c.FACTSITE.LIBELLESITE, new { @class = "form-control", @readonly = "readonly" })
+                    </div>
+                </div>
+                @*<div class="form-group">
+                    <label class="col-md-3 control-label">Mot de passe</label>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(c => c.PASSWORD, new { @class = "form-control", @readonly = "readonly" })
+                    </div>
+                </div>*@
+                
+                <div class="form-group">
+                    <label style="margin-top: 0" class="col-md-3 control-label">Actif</label>
+                    <div class="col-md-4">
+                       @if (Model.ACTIF == 1)
+                                    {
+                                        <span class="badge badge-success">Oui
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-danger">Non
+                                        </span>
+                                    }
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Chapitres</label>
+                    <div class="col-md-4">
+                        <ul>
+                            @foreach (Domain.appFacture.FACTTYPE item in Model.FACTTYPE)
+                            {
+                                <li>@item.LIBELLE</li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Site</label>
+                    <div class="col-md-4">
+                        <ul>
+                            @foreach (Domain.appFacture.FACTSITE item in Model.FACTSITE1)
+                            {
+                                <li>@item.LIBELLESITE</li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+                <div class="form-group last">
+                    <label class="col-md-3 control-label">Groupes</label>
+                    <div class="col-md-4">
+                        <ul>
+                            @foreach (Domain.appFacture.FACTGROUPE item in Model.FACTGROUPE)
+                            {
+                                <li>@item.LIBELLEGROUPE</li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+                @if(Model.DERNIERUTILISATEUR.HasValue) {
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Utilisateur qui a inséré ou modifié cet élément</label>
+                    <div class="col-md-4">
+                        <a target="_blank" href="/Utilisateur/View/@Model.DERNIERUTILISATEUR">Utilisateur @Model.DERNIERUTILISATEUR</a>
+                        
+                    </div>
+                </div>
+                }
+            </div>
+            <div class="form-actions fluid">
+                <div class="col-md-offset-3 col-md-9">
+                    <a href="@Url.Action("Index", new { keepFilters = true })" class="btn default">Retour</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Styles
+{
+    <style>
+        .page-content .page-breadcrumb.breadcrumb {
+            background-color: #35aa47;
+        }
+    </style>
+}

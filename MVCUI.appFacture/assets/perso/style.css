@@ -1,0 +1,10 @@
+tr {
+width: 100%;
+display: inline-table;
+}
+tbody{
+  overflow-y: scroll;
+  height: 200px;
+  width: 100%;
+  position: absolute;
+}

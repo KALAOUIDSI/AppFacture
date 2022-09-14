@@ -1,0 +1,359 @@
+﻿@model Domain.appFacture.FACTFACTURE
+
+@{
+    ViewBag.Title = "Factures : Visualiser";
+}
+<div class="row">
+    <div class="col-md-12">
+        <ul class="page-breadcrumb breadcrumb" style="margin-top: 0px; margin-bottom: 2px; padding-left: 0px; padding-right: 0px;">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="@Url.Action("Index", "Home")">
+                    Accueil
+                </a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="@Url.Action("Index")">
+                    Factures
+                </a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <i class="fa fa-bars"></i>
+                <a href="#">
+                    Facture <small>Visualiser</small>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="portlet box blue">
+    <div class="portlet-title" style="padding-top: 0px;">
+        @*<div class="caption">
+                <i class="fa fa-reorder"></i>
+                Demande facture <small>Visualiser</small>
+            </div>*@
+    </div>
+
+    <div class="portlet-body form">
+        <div class="EditForm form-horizontal">
+            <div class="form-body">
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Référence</label>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(c => c.REFERENCEFACT, new { @class = "form-control", @readonly = "readonly" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Désignation</label>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(c => c.LIBELLEDEMANDE, new { @class = "form-control", @readonly = "readonly" })
+                    </div>
+                </div>
+                @*<div class="form-group">
+                    <label class="col-md-3 control-label">Chapitre</label>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(c => c.CHAPITRE, new { @class = "form-control", @readonly = "readonly" })
+                    </div>
+                </div>*@
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Type Facture</label>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(c => c.FACTTYPE.LIBELLE, new { @class = "form-control", @readonly = "readonly" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Status</label>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(c => c.FACTFACTURESTATUS.LIBELLE, new { @class = "form-control", @readonly = "readonly" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Client</label>
+                    <div class="col-md-4">
+                        @if (Model.TYPECLIENT == 2)
+                        {
+                            if (Model.IDCLIENT.HasValue)
+                            {
+                                @Html.TextBoxFor(c => c.FACTCLIENT.DESIGNATIONCLIENT, new { @class = "form-control", @readonly = "readonly" })
+                            }
+                        }
+                        else
+                        {
+                            if (Model.IDCLIENTINTERNE.HasValue)
+                            {
+                                @Html.TextBoxFor(c => c.FACTSITE.LIBELLESITE, new { @class = "form-control", @readonly = "readonly" })
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Montant HT</label>
+                    <div class="col-md-4">
+                        @*@Html.TextBoxFor(c => c.MNTHT, new { @class = "form-control", @readonly = "readonly" })*@
+                        <input class="form-control" data-val="true" data-val-number="The field MNTHT must be a number." id="MNTHT" name="MNTHT" readonly="readonly" type="text" value="@string.Format("{0:#,0.00}", @Model.MNTHT)">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Montant TTC</label>
+                    <div class="col-md-4">
+                        <input class="form-control" data-val="true" data-val-number="The field MNTTTC must be a number." id="MNTTTC" name="MNTTTC" readonly="readonly" type="text" value="@string.Format("{0:#,0.00}", @Model.MNTTTC)">
+                        @*@Html.TextBoxFor(c => c.MNTTTC, new { @class = "form-control", @readonly = "readonly" })*@
+                    </div>
+                </div>
+                <div class="form-group">
+                    @foreach (var item in Model.FACTFACTPIECEJOINTE)
+                    {
+                        <label class="col-md-3 control-label">Pièce jointe</label>
+                        <div class="col-md-4">
+                            <a href="@Url.Action("DownloadPJ", new { idFichier = item.IDPIECEJOINTE })" title="telecharger le fichier">
+                                @item.NOM
+                            </a>
+                        </div>
+                    }
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Détails facture</label>
+                    <div class="col-md-9">
+                        <table class="table table-striped table-hover table-bordered" id="detfactures">
+                            <thead>
+                                <tr>
+                                    @*<th>
+            Code
+        </th>*@
+                                    <th>
+                                        Désignation
+                                    </th>
+                                    <th>
+                                        Qté
+                                    </th>
+                                    <th>
+                                        Prix unitaire
+                                    </th>
+                                    <th>
+                                        Taux TVA
+                                    </th>
+                                    <th>
+                                        TVA IPPRF
+                                    </th>
+                                    <th>
+                                        Mnt TVA
+                                    </th>
+                                    <th>
+                                        Mnt IPPRF
+                                    </th>
+                                    <th>
+                                        Mnt TTC
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.FACTFACTUREDETAIL)
+                                {
+                                <tr>
+                                    @*<td>
+            @item.REFERENCEPRODUIT
+        </td>*@
+                                    @if (Model.FACTTYPE.IDCATEGORIE.ToString() == "5")
+                                    {
+                                        <td>
+                                            @item.LIBELLEPRODUIT @Model.LIBELLEDEMANDE
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @item.LIBELLEPRODUIT
+                                        </td>
+                                    }
+                                    <td>
+                                        @string.Format("{0:#,0.00}", item.QUANTITE)
+                                    </td>
+                                    <td>
+                                        @string.Format("{0:#,0.00}", item.PRIXUNITAIRE)
+                                    </td>
+                                    <td>
+                                        @string.Format("{0:#,0.00}", item.TAUXTVA)
+                                    </td>
+                                    <td>
+                                        @if (item.TAUXTVAIPPRF == null)
+                                        {
+                                            item.TAUXTVAIPPRF = 0;
+                                        }
+                                        @string.Format("{0:#,0.00}", item.TAUXTVAIPPRF)
+                                    </td>
+                                    <td>
+                                        @string.Format("{0:#,0.00}", item.MNTTVA)
+                                    </td>
+                                    <td>
+                                          @if (item.MNTTVAIPPRF == null)
+                                        {
+                                            item.MNTTVAIPPRF = 0;
+                                        }
+
+                                        @string.Format("{0:#,0.00}", item.MNTTVAIPPRF)
+                                    </td>
+                                    <td>
+                                        @string.Format("{0:#,0.00}", item.MNTTTC)
+                                    </td>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Ventilation des TVA</label>
+                    <div class="col-md-9">
+                        <table class="table table-striped table-hover table-bordered" id="detfactures">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        TVA
+                                    </th>
+                                    <th>
+                                        TAUX TVA
+                                    </th>
+                                    <th>
+                                        TVA IPPRF
+                                    </th>
+                                    <th>
+                                        TAUX IPPRF
+                                    </th>
+                                    <th>
+                                        HT
+                                    </th>
+                                    <th>
+                                        TAXE
+                                    </th>
+                                    <th>
+                                        TAXE IPPRF
+                                    </th>
+                                    <th>
+                                        TTC
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.TVATOTAUX)
+                                {
+                                    <tr>
+                                        <td>
+                                            TVA A @item.TAUXTVA %
+                                        </td>
+                                        <td>
+                                            @item.TAUXTVA
+                                        </td>
+
+                                        <td>
+                                            @if (item.TAUXTVAIPPRF == null)
+                                            {
+                                                item.TAUXTVAIPPRF = 0;
+                                            }
+                                                                        
+                                            TVA A @item.TAUXTVAIPPRF %
+                                        </td>
+                                        <td>
+                                            @string.Format("{0:#,0.00}",item.TAUXTVAIPPRF)
+                                        </td>
+
+                                        <td>
+                                            @string.Format("{0:#,0.00}", item.MNTHT)
+                                        </td>
+                                         <td>
+                                            @string.Format("{0:#,0.00}", item.MNTVA)
+                                        </td>
+                                        <td>
+                                            @if (item.MNTVAIPPRF == null)
+                                            {
+                                                item.MNTVAIPPRF = 0;
+                                            }
+                                            @string.Format("{0:#,0.00}",  item.MNTVAIPPRF)
+                                        </td>
+                                        <td>
+                                            @string.Format("{0:#,0.00}", item.MNTTC)
+                                        </td>
+                                    </tr>
+                                }
+                                    <tr>
+                                        <td>
+                                            TOTAL
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            @string.Format("{0:#,0.00}", @Model.MNTHT)
+                                        </td>
+                                        <td>
+                                            @string.Format("{0:#,0.00}", @Model.MNTTVA)
+                                        </td>
+                                        <td>
+                                             @if (@Model.MNTTVAPPRF == null)
+                                            {
+                                                Model.MNTTVAPPRF = 0;
+                                            }
+                                            @string.Format("{0:#,0.00}", @Model.MNTTVAPPRF)
+                                        </td>
+                                        <td>
+                                            @string.Format("{0:#,0.00}", @Model.MNTTTC)
+                                        </td>
+                                    </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                @*@if (User.IsInRole("VALIDATOR"))
+                {
+                    using (Html.BeginForm("Valider", "Demande", FormMethod.Post, new { @class = "validdemande form-horizontal" }))
+                    {
+                        @Html.Hidden("id", Model.IDDEMANDE)
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Commentaires<span class="required">*</span></label>
+                            <div class="input-icon col-md-4">
+                                <textarea class="form-control required" id="commentaire" name="commentaire" rows="4" cols="50"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-3 col-md-9">
+                                <button title="Valider" name="valider" style="padding: 6px 12px;" class="btn submit green"><i class="fa fa-save"></i>Valider</button>
+                                <button title="Refuser" name="refuser" style="padding: 6px 12px;" class="btn submit blue"><i class="fa fa-undo"></i>Refuser</button>
+
+                            </div>
+                        </div>
+                    }
+                }*@
+            </div>
+            <div class="form-actions fluid">
+                <div class="col-md-offset-3 col-md-9">
+                    <a href="@Url.Action("Index", new { keepFilters = true })" class="btn default">Retour</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+    <script type="text/javascript" src="@Url.Content("~/assets/plugins/jquery-validation/dist/jquery.validate.min.js")"></script>
+    <script>
+        jQuery(document).ready(function () {
+            $('.validdemande').validate({
+            });
+            jQuery.extend(jQuery.validator.messages, {
+                required: "Ce champ est obligatoire.",
+                number: "Merci d'entrer un chiffre valide.",
+                email: "Merci de renseigner un email valide."
+            });
+        });
+    </script>
+}
+@section Styles
+{
+    <style>
+        .page-content .page-breadcrumb.breadcrumb {
+            background-color: #27a9e3;
+        }
+    </style>
+}

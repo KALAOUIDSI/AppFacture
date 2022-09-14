@@ -1,0 +1,476 @@
+﻿@model appFacture.Models.FactureListView
+
+@{
+    ViewBag.Title = "Factures";
+}
+<div class="row">
+    <div class="col-md-12">
+        <ul class="page-breadcrumb breadcrumb" style="margin-top: 0px; margin-bottom: 2px; padding-left: 0px; padding-right: 0px;">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="@Url.Action("Index", "Home")">
+                    Accueil
+                </a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <i class="fa fa-file-o"></i>
+                <a href="@Url.Action("Index")">Factures
+                </a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="portlet box blue">
+    <div class="portlet-title" style="padding-top: 0px;">
+    </div>
+    <div class="portlet-body">
+        <div id="sample_1_wrapper" class="dataTables_wrapper" role="grid">
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <div class="dataTables_filter" id="sample_1_filter">
+                        @using (Html.BeginForm("Index", "Facture", FormMethod.Get, new { style = "display:inline" }))
+                        {
+                            <label>
+                                <input id="search" name="search" type="text" placeholder = "Rechercher" class="form-control input input-inline" value="@Model.Search"></label>
+                            <a href="#" title="Rechercher" class="btn submitSearch default dark">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        }
+                        <a href="#" title="Recherche avancée" class="btn advSearchBtn default blue"><i class="fa fa-search-plus"></i></a>
+                        <a href="@Url.Action("ExportExcelConsulter", new { advSearch = Model.AdvSearch, search = Model.Search, sortby = Model.SortBy, isasc = Model.IsAsc })" title="Exporter en Excel" class="btn green export">
+                            <i class="fa fa-file-excel-o"></i>
+                        </a>
+                        <a data-toggle="modal" class="btn default yellow view" title="Télecharger le rapport" href="@Url.Action("View2", "Facture")">
+                            <i class="fa fa-file-o"></i>
+                        </a>
+                    </div>
+                    <div class="dataTables_filter"></div>
+
+                </div>
+
+                <div class="col-md-3 col-sm-12">
+                    <div style="float: right">
+                        @if (Model.Factures.Any())
+                        {
+                            <a data-toggle="modal" href="@Url.Action("Genbrouillard", new { advSearch = Model.AdvSearch, search = Model.Search, sortby = Model.SortBy, isasc = Model.IsAsc })" title="Générer brouillard" class="submitGenerertous btn green">
+                                <i class="fa fa-pencil"></i>Générer brouillard
+                            </a>
+                            @*<a data-toggle="modal" href="@Url.Action("View2", "Facture")" title="Générer brouillard" class="submitGenerertous btn green view">
+                                <i class="fa fa-pencil"></i>Génnérer brouillard
+                            </a>*@
+                        }
+                    </div>
+                </div>
+
+                @using (Html.BeginForm("generer", "Facture", FormMethod.Post))
+                {
+                    <div class="col-md-3 col-sm-12">
+                        <div style="float: right" class="inline">
+                            <a href="#" class="btn submitIntegrer blue">
+                                <i class="fa fa-pencil"></i>Integrer Agresso
+                            </a>
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+            <div class="table-scrollable">
+                <table class="table table-striped table-bordered table-hover dataTable" id="sample_1" aria-describedby="sample_1_info">
+                    <thead>
+                        <tr role="row">
+                            <th class="@(Model.SortBy == 0 ? (Model.IsAsc ? "sorting_asc" : "sorting_desc") : "sorting")" rel="@Url.Action("Index", new { advSearch=Model.AdvSearch, search = Model.Search, sortby = 0, isasc = (Model.SortBy == 0 ? (Model.IsAsc ? false : true) : true) })" title="Référence">Référence</th>
+                            <th class="@(Model.SortBy == 1 ? (Model.IsAsc ? "sorting_asc" : "sorting_desc") : "sorting")" rel="@Url.Action("Index", new { advSearch=Model.AdvSearch, search = Model.Search, sortby = 1, isasc = (Model.SortBy == 1 ? (Model.IsAsc ? false : true) : true) })" title="Désignation">Désignation</th>
+                            <th class="@(Model.SortBy == 8 ? (Model.IsAsc ? "sorting_asc" : "sorting_desc") : "sorting")" rel="@Url.Action("Index", new { advSearch=Model.AdvSearch, search = Model.Search, sortby = 8, isasc = (Model.SortBy == 8 ? (Model.IsAsc ? false : true) : true) })" title="Date facture">Date facture</th>
+                            @*<th class="@(Model.SortBy == 2 ? (Model.IsAsc ? "sorting_asc" : "sorting_desc") : "sorting")" rel="@Url.Action("Index", new { advSearch=Model.AdvSearch, search = Model.Search, sortby = 2, isasc = (Model.SortBy == 2 ? (Model.IsAsc ? false : true) : true) })" title="Chapitre">Chapitre</th>*@
+                            <th class="@(Model.SortBy == 3 ? (Model.IsAsc ? "sorting_asc" : "sorting_desc") : "sorting")" rel="@Url.Action("Index", new { advSearch=Model.AdvSearch, search = Model.Search, sortby = 3, isasc = (Model.SortBy == 3 ? (Model.IsAsc ? false : true) : true) })" title="Type facture<">Type facture</th>
+                            <th class="@(Model.SortBy == 4 ? (Model.IsAsc ? "sorting_asc" : "sorting_desc") : "sorting")" rel="@Url.Action("Index", new { advSearch=Model.AdvSearch, search = Model.Search, sortby = 4, isasc = (Model.SortBy == 4 ? (Model.IsAsc ? false : true) : true) })" title="Status">Status</th>
+                            <th class="@(Model.SortBy == 5 ? (Model.IsAsc ? "sorting_asc" : "sorting_desc") : "sorting")" rel="@Url.Action("Index", new { advSearch=Model.AdvSearch, search = Model.Search, sortby = 5, isasc = (Model.SortBy == 5 ? (Model.IsAsc ? false : true) : true) })" title="Client">Client</th>
+                            <th class="@(Model.SortBy == 6 ? (Model.IsAsc ? "sorting_asc" : "sorting_desc") : "sorting")" rel="@Url.Action("Index", new { advSearch=Model.AdvSearch, search = Model.Search, sortby = 6, isasc = (Model.SortBy == 6 ? (Model.IsAsc ? false : true) : true) })" title="Mnt HT">Mnt HT</th>
+                            <th class="@(Model.SortBy == 7 ? (Model.IsAsc ? "sorting_asc" : "sorting_desc") : "sorting")" rel="@Url.Action("Index", new { advSearch=Model.AdvSearch, search = Model.Search, sortby = 7, isasc = (Model.SortBy == 7 ? (Model.IsAsc ? false : true) : true) })" title="Mnt TTC">Mnt TTC</th>
+                            <th title="Actions">Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <tr role="row" class="filter @if(Model.AdvSearch==""){<text>display-hide</text>}">
+                            <td rowspan="1" colspan="1">
+                                <input type="text" class="form-control form-filter input-sm" value="@Model.AdvSearchFilters.reference" name="reference">
+                            </td>
+                            <td rowspan="1" colspan="1">
+                                <input type="text" class="form-control form-filter input-sm" value="@Model.AdvSearchFilters.designation" name="designation">
+                            </td>
+                            <td rowspan="1" colspan="1">
+                                @*<input type="text" class="form-control form-filter input-sm" value="@Model.AdvSearchFilters.designation" name="designation">*@
+                            </td>
+                            @*<td rowspan="1" colspan="1">
+                                <input type="text" class="form-control form-filter input-sm" value="@Model.AdvSearchFilters.chapitre" name="chapitre">
+                            </td>*@
+                            <td rowspan="1" colspan="1">
+                                @Html.DropDownList("typefacture", new SelectList(ViewBag.listTypes, "IDFACTTYPE", "LIBELLE", Model.AdvSearchFilters.typefacture), new { @class = "form-control form-filter input-sm" })
+                            </td>
+                            <td rowspan="1" colspan="1">
+                                @Html.DropDownList("status", new SelectList(ViewBag.listStatus, "STATUS", "LIBELLE", Model.AdvSearchFilters.status), new { @class = "form-control form-filter input-sm" })
+                            </td>
+                            <td rowspan="1" colspan="1">
+                                <input type="text" class="form-control form-filter input-sm" value="@Model.AdvSearchFilters.client" name="client">
+                            </td>
+                            <td rowspan="1" colspan="1">
+                                <input type="text" class="form-control form-filter input-sm" value="@Model.AdvSearchFilters.mntht" name="mntht">
+                            </td>
+                            <td rowspan="1" colspan="1">
+                                <input type="text" class="form-control form-filter input-sm" value="@Model.AdvSearchFilters.mntttc" name="mntttc">
+                            </td>
+                            <td>
+                                <div class="margin-bottom-5">
+                                    @using (Html.BeginForm("Index", "Facture", FormMethod.Get, new { style = "display:inline" }))
+                                    {
+                                        @Html.Hidden("advSearch", "")
+                                        <button class="btn btn-sm blue filter-submit margin-bottom"><i class="fa fa-search"></i> Rechercher</button>
+                                    }
+                                </div>
+                                <a class="btn default" href="@Url.Action("Index")"><i class="fa fa-times"></i> Annuler</a>
+                            </td>
+                        </tr>
+                        @if (!Model.Factures.Any())
+                        {
+                            <tr>
+                                <td colspan="8">
+                                    <h3>Aucun élement trouvé !</h3>
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (var item in Model.Factures)
+                            {
+                            <tr>
+                                <td class="highlight">
+                                        <div class="success">
+                                        </div>
+                                        @item.REFERENCEFACT
+                                    </td>
+                                <td>
+                                    @item.LIBELLEDEMANDE
+                                </td>
+                                @*<td>
+                                    @item.CHAPITRE
+                                </td>*@
+                                <td>
+                                    @item.DATECREATION.Value.ToString("dd/MM/yyyy")
+                                </td>
+                                <td>
+                                    @item.FACTTYPE.LIBELLE
+                                </td>
+                                <td>
+                                    @if (item.STATUS == 0 || item.STATUS == 6)
+                                    {
+                                        <span class="badge badge-default">
+                                            @item.FACTFACTURESTATUS.LIBELLE
+                                        </span>
+                                    }
+                                    
+                                    @if (item.STATUS == 2)
+                                    {
+                                        <span class="badge badge-warning">
+                                            @item.FACTFACTURESTATUS.LIBELLE
+                                        </span>
+                                    }
+                                    
+                                    @if (item.STATUS == 1) {
+                                        <span class="badge badge-warning">
+                                            @item.FACTFACTURESTATUS.LIBELLE
+                                        </span>
+                                        <span>Le @item.DATEIMPRESSION.Value.ToString("dd/MM/yyyy")</span>
+                                    }
+                                    @if (item.STATUS == 3)
+                                    {
+                                        <span class="badge badge-success">
+                                            @item.FACTFACTURESTATUS.LIBELLE
+                                        </span>
+                                        <span>Le @item.DATECOMPTABILISATION.Value.ToString("dd/MM/yyyy")</span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (item.TYPECLIENT==1)
+                                    {
+                                       @item.FACTSITE.LIBELLESITE
+                                    }
+                                    else {
+                                       @item.FACTCLIENT.DESIGNATIONCLIENT
+                                    }
+                                </td>
+                                <td>
+                                    @string.Format("{0:#,0.00}", item.MNTHT)
+                                </td>
+                                <td>
+                                    @string.Format("{0:#,0.00}", item.MNTTTC)
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("View", new { id = item.IDFACTURE })" title="Visualiser" class="btn default yellow">
+                                        <i class="fa fa-search"></i>
+                                    </a>
+                                    @if (!item.FLAGAVOIR.HasValue || item.FLAGAVOIR != 1)
+                                    {
+                                       if(item.FACTTYPE.IDCATEGORIE!=5){
+                                            using (Html.BeginForm("Create", "Facture", FormMethod.Post, new { style = "display:inline" }))
+                                            {
+                                                @Html.Hidden("id", item.IDFACTURE)
+                                                <a href="#" title="Créer un avoir" class="btn submitEdit default purple">
+                                                    <i class="fa fa-minus"></i>
+                                                </a>
+                                            }
+                                        }else {
+                                            using (Html.BeginForm("Create2", "Facture", FormMethod.Post, new { style = "display:inline" }))
+                                            {
+                                                @Html.Hidden("id", item.IDFACTURE)
+                                                <a href="#" title="Créer un avoir" class="btn submitEdit default purple">
+                                                    <i class="fa fa-minus"></i>
+                                                </a>
+                                            }
+                                        }
+                                    }
+
+                                    @if (item.FLAGAVOIR.HasValue && item.FLAGAVOIR == 1 && item.STATUS == 0)
+                                    {
+                                        if(item.FACTTYPE.IDCATEGORIE!=5){
+                                            using (Html.BeginForm("Edit", "Facture", FormMethod.Post, new { style = "display:inline" }))
+                                            {
+                                                @Html.Hidden("id", item.IDFACTURE)
+                                                <a href="#" title="Modifier un avoir" class="btn submitEdit default green">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                            }
+                                        }
+                                        else { 
+                                            using (Html.BeginForm("Edit2", "Facture", FormMethod.Post, new { style = "display:inline" }))
+                                            {
+                                                @Html.Hidden("id", item.IDFACTURE)
+                                                <a href="#" title="Modifier un avoir" class="btn submitEdit default green">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                            }
+                                        }
+                                    }
+                                    
+                                    @if (item.STATUS != 3 && User.IsInRole("VALIDATOR") )
+                                    {
+                                        using (Html.BeginForm("Delete", "Facture", FormMethod.Post, new { style = "display:inline" }))
+                                        {
+                                            @Html.Hidden("id", item.IDFACTURE)
+                                            <a href="#" title="Supprimer" class="btn submitDelete default black">
+                                                <i class="fa fa-trash-o"></i>
+                                            </a>
+                                        }
+                                    }
+                                    
+                                    <a href="@Url.Action("ExportPdf", new { idfacture = item.IDFACTURE })" title="Imprimer la facture" class="btn red export">
+                                        <i class="fa fa-download"></i>
+                                    </a>
+                                    
+                                    @if (item.STATUS == 1 || item.STATUS == 2 || item.STATUS == 6)
+                                    {
+                                        using (Html.BeginForm("Reporter", "Facture", FormMethod.Post, new { style = "display:inline" }))
+                                        {
+                                            @Html.Hidden("id", item.IDFACTURE)
+                                            <a href="#" title="Reporter" class="btn submitReporter default black">
+                                                @if(item.STATUS == 6){
+                                                    <text>Ré-intégrer</text>
+                                                }else{
+                                                    <text>Reporter</text>
+                                                }
+                                            </a>
+                                        }
+                                    }
+                                    
+                                    @*@if (item.STATUS == 1)
+                                    {
+                                        <a href="@Url.Action("\", new { id = item.IDFACTURE })" title="Générer brouillard" class="btn green transfert">
+                                            <i class="fa fa-link"></i>
+                                        </a>
+                                    }
+                                    @if (item.STATUS == 2)
+                                    {
+                                        <a href="@Url.Action("Transfer", new { id = item.IDFACTURE })" title="Transférer vers Agresso" class="btn green transfert">
+                                            <i class="fa fa-link"></i>
+                                        </a>
+                                    }*@
+
+
+
+                                </td>
+                            </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-sm-12">
+                        @if (@Model.PagingInfo.TotalItems>0) {
+                        <div class="well" style="margin-top: 10px;padding: 6px 12px;">
+								<span>@Model.PagingInfo.TotalItems @(Model.PagingInfo.TotalItems>1?"éléments":"élément")</span> <span style="float:right">Page @Model.PagingInfo.CurrentPage / @Model.PagingInfo.TotalPages</span>
+					    </div>
+                        }
+                    </div>
+                    <div class="col-md-9 col-sm-12">
+                        @if (@Model.PagingInfo.TotalItems>0) {
+                        <div class="dataTables_paginate paging_bootstrap">
+                            <ul class="pagination" style="visibility: visible;">
+                                @Html.PageLinks(Model.PagingInfo, pageNum => Url.Action("Index", new { page = pageNum, advSearch=Model.AdvSearch, search = Model.Search, sortby = Model.SortBy, isasc = Model.IsAsc }))
+                            </ul>
+                        </div>
+                        }
+                    </div>
+
+            </div>
+            @*<div class="row">
+                <div class="col-md-6 col-sm-12">
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div style="float: right">
+                        <a href="@Url.Action("Create")" class="btn blue"><i class="fa fa-pencil"></i>Ajouter une nouvelle demande
+                        </a>
+                    </div>
+                </div>
+
+            </div>*@
+        </div>
+    </div>
+</div>
+<div id="ajax-modal" class="modal container fade" tabindex="-1" style="z-index:5000;">
+</div>
+@section Scripts
+{
+    <script type="text/javascript" src="@Url.Content("~/assets/plugins/bootstrap-modal/js/bootstrap-modalmanager.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/assets/plugins/bootstrap-modal/js/bootstrap-modal.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/assets/scripts/custom/ui-extended-modals.js")"></script>
+    <script>
+        jQuery(document).ready(function () {
+            UIExtendedModals.init();
+            var imageUrl = '@Url.Content("~/assets/img/loading-progress.gif")';
+
+            $('.submitDelete').click(function (e) {
+                if (confirm('Voulez vous vraiment supprimer cette facture ?')) {
+                    $(this).parent().submit();
+                }
+            });
+            $('.submitReporter').click(function (e) {
+                if (confirm('Voulez vous vraiment reporter ou ré-integrer cette facture ?')) {
+                    $(this).parent().submit();
+                }
+            });
+            
+            $('.submitEdit').click(function (e) {
+                $(this).parent().submit();
+            });
+            $('.submitSearch').click(function (e) {
+                $(this).parent().submit();
+            });
+
+            $('.submitIntegrer').click(function (e) {
+                $(this).parent().parent().parent().submit();
+            });
+            $('.submitGenerertous').click(function (e) {
+                if (confirm('Voulez vous vraiment générer les brouillards ?')) {
+                    $('body').append('<div id="over" style="position: absolute; top:0;left:0;width: 100%;height:100%;z-index:4000;opacity:0.4;filter: alpha(opacity = 50)"> <img src="' + imageUrl + '" alt="Chargement..." style="position: absolute; top: 50%; left: 50%; margin: -50px 0px 0px -50px;" /> </div>');
+                } else {
+                    return false;
+                }
+            });
+            $('.advSearchBtn').click(function (e) {
+                $('.filter').toggleClass('display-hide');
+                $(this).html(function (i, html) {
+                    return html === '<i class="fa fa-search-plus"></i>' ? '<i class="fa fa-search-minus"></i>' : '<i class="fa fa-search-plus"></i>';
+                });
+            });
+            $('.filter-submit').click(function (e) {
+                var loginForm = $('.form-filter').serializeArray();
+                var loginFormObject = {};
+                $.each(loginForm, function (i, v) {
+                    if (v.value != "" && v.value != "-1")
+                        loginFormObject[v.name] = v.value;
+                });
+                $('#advSearch').val(JSON.stringify(loginFormObject));
+            });
+            $('.sorting, .sorting_asc, .sorting_desc').click(function (e) {
+                location.href = $(this).attr('rel');
+            });
+            @if (TempData["message"] != null)
+            {
+            <text>
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "positionClass": "toast-top-right",
+                "onclick": null,
+                "showDuration": "1000",
+                "hideDuration": "1000",
+                "timeOut": "3000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+            </text>
+            }
+            @if (TempData["state"] != null && TempData["message"] != null)
+            {
+                if (TempData["success"] == "true")
+                {
+                    if (TempData["state"] == "1")
+                    {
+                   <text>
+            toastr.success("@TempData["message"]", "Insertion");
+                   </text>
+                    }
+                    else if (TempData["state"] == "2")
+                    {
+                   <text>
+            toastr.success("@TempData["message"]", "Modification");
+                   </text>
+                    }
+                    else if (TempData["state"] == "3")
+                    {
+                   <text>
+            toastr.success("@TempData["message"]", "Suppression");
+                   </text>
+                    }
+                }
+                else if (TempData["success"] == "false")
+                {
+                    if (TempData["state"] == "1")
+                    {
+                   <text>
+            toastr.error("@TempData["message"]", "Insertion");
+                   </text>
+                    }
+                    else if (TempData["state"] == "2")
+                    {
+                   <text>
+            toastr.error("@TempData["message"]", "Modification");
+                   </text>
+                    }
+                    else if (TempData["state"] == "3")
+                    {
+                   <text>
+            toastr.error("@TempData["message"]", "Suppression");
+            </text>
+                    }
+                }
+            }
+        });
+    </script>
+}
+@section Styles
+{
+    <style>
+        .page-content .page-breadcrumb.breadcrumb {
+            background-color: #27a9e3;
+        }
+    </style>
+}

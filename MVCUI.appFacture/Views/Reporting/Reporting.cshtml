@@ -1,0 +1,168 @@
+﻿@model appFacture.Models.Reporting1View
+
+@{
+    string actionName = ViewContext.RouteData.GetRequiredString("action");
+    ViewBag.Title = "Listing des factures par chapitre/société";
+}
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="@Url.Action("Index","Home")">Accueil
+                </a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<div class="portlet box yellow">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-reorder"></i>
+            Listing des factures par chapitre/société
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <!-- BEGIN FORM-->
+        @using (Html.BeginForm("ExportReport", "Reporting", FormMethod.Post, new { @class = "EditForm form-horizontal" }))
+        {
+            <div class="form-body">
+                <div class="alert alert-danger display-hide">
+                    <button class="close" data-close="alert"></button>
+                    Vous avez des erreurs, merci de vérifier!
+                </div>
+                <div class="alert alert-success display-hide">
+                    <button class="close" data-close="alert"></button>
+                    Données correctes! transmission en cours!
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Date facture<span class="required">*</span></label>
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <input type="text" class="form-control date form-filter input-sm" value="@Model.debutcmd" id="debutcmd" name="debutcmd" placeholder="De">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label"></label>
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <input type="text" class="form-control date form-filter input-sm" value="@Model.fincmd" id="fincmd" name="fincmd" placeholder="A">
+                        </div>
+                    </div>
+                </div>
+
+                @*<div class="form-group">
+                    <label class="col-md-3 control-label">Société</label>
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <input type="text" class="form-control form-filter input-sm" value="@Model.societe" id="societe" name="societe">
+                        </div>
+                    </div>
+                </div>*@
+
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Société(s)</label>
+                    <div class="col-md-4">
+                        @Html.Hidden("selectedSocietes", "")
+                        @Html.DropDownList("Societes", new MultiSelectList(ViewBag.listSocietes, "IDENSEIGNE", "LIBELLEENSEIGNE"), null, new { @class = "form-control select2me", multiple = "multiple" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Chapitres(s)</label>
+                    <div class="col-md-4">
+                        @Html.Hidden("selectedChapitres", "")
+                        @Html.DropDownList("Chapitres", new MultiSelectList(ViewBag.listChapitres, "IDFACTTYPE", "LIBELLE"), null, new { @class = "form-control select2me", multiple = "multiple" })
+                    </div>
+                </div>
+
+                </div>
+
+            <div class="form-actions fluid">
+                <div class="col-md-offset-3 col-md-9">
+
+                    <button type="button" class="btn submit blue">
+                        Excel
+                    </button>
+                </div>
+            </div>
+        }
+        <!-- END FORM-->
+    </div>
+</div>
+@section Scripts
+{
+    <script type="text/javascript" src="@Url.Content("~/assets/plugins/jquery-validation/dist/jquery.validate.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/assets/plugins/jquery-validation/dist/additional-methods.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/assets/plugins/select2/select2.min.js")"></script>
+    <script>
+        jQuery(document).ready(function () {
+            $.validator.addMethod(
+                "moroccanDate",
+                function (value, element) {
+                    // put your own logic here, this is just a (crappy) example
+                    return value.match(/^\d\d?\/\d\d?\/\d\d\d\d$/);
+                },
+                "Merci de renseigner une date valide."
+            );
+           
+            $.validator.addClassRules({
+                date: {
+                    required: false,
+                }
+            });
+
+            $('.submit').click(function (e) {
+                $('#selectedSocietes').val($('#Societes').val());
+                $('#selectedChapitres').val($('#Chapitres').val());
+                //$('#LOGIN').trigger('change');
+                /*if ($('#selectedSites').val() == "" | $('#selectedSites').val() == "-1")
+                    alert("Le choix de la société est obligatoire.");
+                else*/
+                    $('.EditForm').submit();
+            });
+
+            jQuery.extend(jQuery.validator.messages, {
+                required: "Ce champ est obligatoire.",
+                number: "Merci d'entrer un chiffre valide.",
+                email: "Merci de renseigner un email valide.",
+                date: "Merci de saisir une date valide {0} ",
+            });
+
+            $('.EditForm').validate({
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block', // default input error message class
+                focusInvalid: false, // do not focus the last invalid input
+                ignore: "",
+                rules: {
+                    debutcmd: { moroccanDate: true }
+                },
+                invalidHandler: function (event, validator) { //display error alert on form submit              
+                    $('.alert-success').hide();
+                    $('.alert-danger').show();
+                },
+                highlight: function (element) { // hightlight error inputs
+                    $(element).closest('.form-group').removeClass('has-success').addClass('has-error'); // set error class to the control group   
+                },
+                unhighlight: function (element) { // revert the change done by hightlight
+                    //$(element).closest('.form-group').removeClass('has-error').addClass('has-success'); // set error class to the control group   
+
+                },
+                success: function (label, element) {
+                    //var icon = $(element).parent('.input-icon').children('i');
+                    //$(element).closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
+                    //icon.removeClass("fa-warning").addClass("fa-check");
+                }
+            });
+            @if (TempData["message"] != null)
+            {
+                <text>alert('@Html.Raw(TempData["message"].ToString())');</text>
+            }
+
+        });
+    </script>
+}

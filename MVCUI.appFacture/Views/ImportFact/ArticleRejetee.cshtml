@@ -1,0 +1,262 @@
+﻿@model Eram.Models.IntDetCmdListView
+
+@{
+    ViewBag.Title = "Articles Rejetées";
+}
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="@Url.Action("Index","Home")">
+                    Accueil
+                </a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="@Url.Action("Index")">
+                    Import commandes
+                </a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="@Url.Action("ArticleRejetee")">
+                    Articles Rejetees
+                </a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<div class="portlet box purple">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-shopping-cart"></i>Articles Rejetées
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div id="sample_1_wrapper" class="dataTables_wrapper" role="grid">
+
+
+            @if (Model.Entete != null)
+            {
+                @*<h3 class="form-section" style="margin: 0; margin-bottom: 5px">Entête</h3>*@
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-4">
+                            Id= <text class="bold">@Model.Entete.IDFICHIER</text> - Nom fichier= <text class="bold">@Model.Entete.NOMFICHIER</text>
+                    </div>
+                </div>
+                @*<h3 class="form-section" style="margin: 0; margin-bottom: 5px">Détail</h3>*@
+            }
+            
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <div class="dataTables_filter" id="sample_1_filter">
+                        @using (Html.BeginForm("ArticleRejetee", "ImportCmd", FormMethod.Get, new { style = "display:inline" }))
+                        {
+                            <label>
+                                <input id="search" name="search" type="text" placeholder="Rechercher" class="form-control input input-inline" value="@Model.Search">
+                            </label>
+                            <a href="#" title="Rechercher" class="btn submitSearch default dark">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        }
+                        <a href="#" title="Recherche avancée" class="btn advSearchBtn default red"><i class="fa fa-search-plus"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-scrollable">
+                <table class="table table-striped table-bordered table-hover dataTable" id="sample_1" aria-describedby="sample_1_info">
+                    <thead>
+                        <tr role="row">
+                            <th class="@(Model.SortBy == 0 ? (Model.IsAsc ? "sorting_asc" : "sorting_desc") : "sorting")" rel="@Url.Action("ArticleRejetee", new { advSearch = Model.AdvSearch, search = Model.Search, sortby = 0, isasc = (Model.SortBy == 0 ? (Model.IsAsc ? false : true) : true) })" title="Id intdetcmd">Id ligne</th>
+                            <th class="@(Model.SortBy == 1 ? (Model.IsAsc ? "sorting_asc" : "sorting_desc") : "sorting")" rel="@Url.Action("ArticleRejetee", new { advSearch = Model.AdvSearch, search = Model.Search, sortby = 1, isasc = (Model.SortBy == 1 ? (Model.IsAsc ? false : true) : true) })" title="Conditionnement">Conditionnement</th>
+                            <th class="@(Model.SortBy == 2 ? (Model.IsAsc ? "sorting_asc" : "sorting_desc") : "sorting")" rel="@Url.Action("ArticleRejetee", new { advSearch = Model.AdvSearch, search = Model.Search, sortby = 2, isasc = (Model.SortBy == 2 ? (Model.IsAsc ? false : true) : true) })" title="Nom article">Article</th>
+                            <th class="@(Model.SortBy == 3 ? (Model.IsAsc ? "sorting_asc" : "sorting_desc") : "sorting")" rel="@Url.Action("ArticleRejetee", new { advSearch = Model.AdvSearch, search = Model.Search, sortby = 3, isasc = (Model.SortBy == 3 ? (Model.IsAsc ? false : true) : true) })" title="refnsi">Refnsi</th>
+                            <th class="@(Model.SortBy == 4 ? (Model.IsAsc ? "sorting_asc" : "sorting_desc") : "sorting")" rel="@Url.Action("ArticleRejetee", new { advSearch = Model.AdvSearch, search = Model.Search, sortby = 4, isasc = (Model.SortBy == 4 ? (Model.IsAsc ? false : true) : true) })" title="taille">Taille</th>
+                            <th class="@(Model.SortBy == 5 ? (Model.IsAsc ? "sorting_asc" : "sorting_desc") : "sorting")" rel="@Url.Action("ArticleRejetee", new { advSearch = Model.AdvSearch, search = Model.Search, sortby = 5, isasc = (Model.SortBy == 5 ? (Model.IsAsc ? false : true) : true) })" title="numero ligne">N° ligne</th>
+                            <th class="@(Model.SortBy == 6 ? (Model.IsAsc ? "sorting_asc" : "sorting_desc") : "sorting")" rel="@Url.Action("ArticleRejetee", new { advSearch = Model.AdvSearch, search = Model.Search, sortby = 6, isasc = (Model.SortBy == 6 ? (Model.IsAsc ? false : true) : true) })" title="numero colonne">N° colonne</th>
+                            <th class="@(Model.SortBy == 7 ? (Model.IsAsc ? "sorting_asc" : "sorting_desc") : "sorting")" rel="@Url.Action("ArticleRejetee", new { advSearch = Model.AdvSearch, search = Model.Search, sortby = 7, isasc = (Model.SortBy == 7 ? (Model.IsAsc ? false : true) : true) })" title="motif de reje">Motif de rejet</th>
+                            <th title="Actions">Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr role="row" class="filter @if(Model.AdvSearch==""){<text>display-hide</text>}">
+                            
+                            <td rowspan="1" colspan="1">
+                                <input type="text" class="form-control form-filter input-sm" value="@Model.AdvSearchFilters.idintdetcmd" name="idintdetcmd">
+                            </td>
+                            <td rowspan="1" colspan="1">
+                                <div><label><span class=""><input type="radio" class="form-filter" id="conditionnement_c" name="conditionnement" value="c" checked=""></span> Colis </label></div>
+                                <div><label><span class=""><input type="radio" class="form-filter" id="conditionnement_v" name="conditionnement" value="v" checked=""></span> Vrac </label></div>
+                            </td>
+                            <td rowspan="1" colspan="1" class="form-horizontal">
+                                <input type="text" class="form-control form-filter input-sm" value="@Model.AdvSearchFilters.article" name="article">
+                            </td>
+                            <td rowspan="1" colspan="1" class="form-horizontal">
+                                <input type="text" class="form-control form-filter input-sm" value="@Model.AdvSearchFilters.refnsi" name="refnsi">
+                            </td>
+                            <td rowspan="1" colspan="1" class="form-horizontal">
+                                <input type="text" class="form-control form-filter input-sm" value="@Model.AdvSearchFilters.taille" name="taille">
+                            </td>
+                            <td rowspan="1" colspan="1" class="form-horizontal">
+                                <input type="text" class="form-control form-filter input-sm" value="@Model.AdvSearchFilters.numligne" name="numligne">
+                            </td>
+                            <td rowspan="1" colspan="1" class="form-horizontal">
+                                <input type="text" class="form-control form-filter input-sm" value="@Model.AdvSearchFilters.numcolonne" name="numcolonne">
+                            </td>
+                            <td rowspan="1" colspan="1" class="form-horizontal">
+                                <input type="text" class="form-control form-filter input-sm" value="@Model.AdvSearchFilters.motifRejet" name="motifRejet">
+                            </td>
+                            <td>
+                                <div class="margin-bottom-5">
+                                    @using (Html.BeginForm("ArticleRejetee", "ImportCmd", FormMethod.Get, new { style = "display:inline" }))
+                                    {
+                                        @Html.Hidden("advSearch", "")
+                                        <button class="btn btn-sm red filter-submit margin-bottom"><i class="fa fa-search"></i> Rechercher</button>
+                                    }
+                                </div>
+                                <a class="btn default" href="@Url.Action("ArticleRejetee")"><i class="fa fa-times"></i> Annuler</a>
+                            </td>
+                        </tr>
+                        @if (!Model.LignesRejetees.Any())
+                        {
+                            <tr>
+                                <td colspan="7">
+                                    <h3>Aucun élement trouvé !</h3>
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (var item in Model.LignesRejetees)
+                            {
+                                <tr>
+
+                                    <td class="highlight">
+                                        <div class="success">
+                                        </div>
+                                        @item.IDINTDETCMD
+                                    </td>
+                                    <td>
+                                        @if (@item.CONDITIONNEMENT.Equals("c"))
+                                        {
+                                            <text>Colis</text>
+                                        }
+                                        else
+                                        {
+                                            <text>Vrac</text>
+                                        }
+                                                                             
+                                    </td>
+                                    <td>
+                                        @if (item.ARTICLE != null)
+                                        {
+                                            @item.ARTICLE.LIBELLEARTICLE
+                                        }                                        
+                                    </td>
+                                    <td>
+                                        @if (item.ARTICLE != null)
+                                        {
+                                            @item.ARTICLE.REFNSI
+                                        }                                        
+                                    </td>
+                                    <td>
+                                        @if (item.ARTICLETAILLE != null)
+                                        {
+                                            @item.ARTICLETAILLE.TAILLE.LIBELLELONGTAILLE
+                                        }                                        
+                                    </td>
+                                    <td>
+                                        @item.NUMLIGNE
+                                    </td>
+                                    <td>
+                                        @item.NUMCOLONNE
+                                    </td>
+                                    <td>
+                                        @item.MOTIF_REJET
+                                    </td>
+                                    <td>
+                                        
+                                    </td>
+                                </tr>
+
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-sm-12">
+                    @if (@Model.PagingInfo.TotalItems > 0)
+                    {
+                        <div class="well" style="margin-top: 10px;padding: 6px 12px;">
+                            <span>@Model.PagingInfo.TotalItems @(Model.PagingInfo.TotalItems > 1 ? "éléments" : "élément")</span> <span style="float:right">Page @Model.PagingInfo.CurrentPage / @Model.PagingInfo.TotalPages</span>
+                        </div>
+                    }
+                </div>
+                <div class="col-md-9 col-sm-12">
+                    @if (@Model.PagingInfo.TotalItems > 0)
+                    {
+                        <div class="dataTables_paginate paging_bootstrap">
+                            <ul class="pagination" style="visibility: visible;">
+                                @Html.PageLinks(Model.PagingInfo, pageNum => Url.Action("ArticleRejetee", new { page = pageNum, advSearch = Model.AdvSearch, search = Model.Search, sortby = Model.SortBy, isasc = Model.IsAsc }))
+                            </ul>
+                        </div>
+                    }
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+    <script>
+    jQuery(document).ready(function () {
+            
+            
+            $('.submitSearch').click(function (e) {
+                $(this).parent().submit();
+            });
+            $('.sorting, .sorting_asc, .sorting_desc').click(function (e) {
+                location.href = $(this).attr('rel');
+            });
+            $('.advSearchBtn').click(function (e) {
+                $('.filter').toggleClass('display-hide');
+                $(this).html(function (i, html) {
+                    return html === '<i class="fa fa-search-plus"></i>' ? '<i class="fa fa-search-minus"></i>' : '<i class="fa fa-search-plus"></i>';
+                });
+            });
+            @if(Model.AdvSearchFilters.conditionnement=="c")
+            {
+                <text>
+                    $.uniform.update($('#conditionnement_c').attr('checked', true));
+                    $.uniform.update($('#conditionnement_v').attr('checked', false));
+                </text>
+            }
+            @if (Model.AdvSearchFilters.conditionnement == "v")
+            {
+                <text>
+                    $.uniform.update($('#conditionnement_c').attr('checked', false));
+                    $.uniform.update($('#conditionnement_v').attr('checked', true));
+                </text>
+            }
+            $('.filter-submit').click(function (e) {
+                var loginForm = $('.form-filter').serializeArray();
+                var loginFormObject = {};
+                $.each(loginForm, function (i, v) {
+                    if (v.value != "" && v.value != "-1")
+                        loginFormObject[v.name] = v.value;
+                });
+                $('#advSearch').val(JSON.stringify(loginFormObject));
+            });
+    });
+    </script>
+}

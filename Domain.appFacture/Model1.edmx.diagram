@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="987dc043a08e41e7b6062f0ec215d5c3" Name="Diagram1" ZoomLevel="54">
+        <EntityTypeShape EntityType="Model.ACRTRANS" Width="1.5" PointX="20.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Model.FACRAPPORTGEN" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Model.FACTASSOGFACTTYPEENSEIGNE" Width="1.5" PointX="6" PointY="20.125" />
+        <EntityTypeShape EntityType="Model.FACTCLIENT" Width="1.5" PointX="6" PointY="31.625" />
+        <EntityTypeShape EntityType="Model.FACTDEMANDE" Width="1.5" PointX="8.25" PointY="24.125" />
+        <EntityTypeShape EntityType="Model.FACTDEMANDEDETAIL" Width="1.5" PointX="10.5" PointY="19.625" />
+        <EntityTypeShape EntityType="Model.FACTENSEIGNE" Width="1.5" PointX="0.75" PointY="20.5" />
+        <EntityTypeShape EntityType="Model.FACTFACTPIECEJOINTE" Width="1.5" PointX="18.75" PointY="29" />
+        <EntityTypeShape EntityType="Model.FACTFACTURE" Width="1.5" PointX="16.5" PointY="24.125" />
+        <EntityTypeShape EntityType="Model.FACTFACTUREDETAIL" Width="1.5" PointX="18.75" PointY="24.625" />
+        <EntityTypeShape EntityType="Model.FACTGROUPE" Width="1.5" PointX="3" PointY="39.5" />
+        <EntityTypeShape EntityType="Model.FACTINTERFACE" Width="1.5" PointX="5.25" PointY="39.5" />
+        <EntityTypeShape EntityType="Model.FACTPIECEJOINTE" Width="1.5" PointX="10.5" PointY="37.875" />
+        <EntityTypeShape EntityType="Model.FACTSITE" Width="1.5" PointX="3" PointY="25.5" />
+        <EntityTypeShape EntityType="Model.FACTTYPE" Width="1.5" PointX="3.75" PointY="15.75" />
+        <EntityTypeShape EntityType="Model.FACTTYPECATEGORIE" Width="1.5" PointX="1.5" PointY="16.5" />
+        <EntityTypeShape EntityType="Model.FACTTYPECLIENT" Width="1.5" PointX="6" PointY="16.5" />
+        <EntityTypeShape EntityType="Model.FACTUSER" Width="1.5" PointX="5.25" PointY="26.125" />
+        <EntityTypeShape EntityType="Model.OTOPACHETEUR" Width="1.5" PointX="3" PointY="31.5" />
+        <EntityTypeShape EntityType="Model.OTOPFACTURE" Width="1.75" PointX="11.25" PointY="24.625" />
+        <EntityTypeShape EntityType="Model.OTOPFACTUREDETAIL" Width="1.5" PointX="13.5" PointY="26.125" />
+        <EntityTypeShape EntityType="Model.OTOPGROUPE" Width="1.5" PointX="3" PointY="37.125" />
+        <EntityTypeShape EntityType="Model.OTOPVENDEUR" Width="1.5" PointX="3" PointY="20.5" />
+        <EntityTypeShape EntityType="Model.FACTCLIENT_INUTILISEE" Width="1.5" PointX="2.75" PointY="0.75" />
+        <AssociationConnector Association="Model.FKFACTASSOGFACTTYPEENSEIGNEE" />
+        <AssociationConnector Association="Model.FKFACTASSOGFACTTYPEENSEIGNEF" />
+        <AssociationConnector Association="Model.FKFACTDEMANDESCLIENT" />
+        <AssociationConnector Association="Model.FKFACTFACTURESCLIENT" />
+        <AssociationConnector Association="Model.FKFACTDEMANDEDEMANDE" />
+        <AssociationConnector Association="Model.FKFACTDEMANDESCLIENTINT" />
+        <AssociationConnector Association="Model.FKFACTDEMANDESITE" />
+        <AssociationConnector Association="Model.FKFACTDEMANDESTYPE" />
+        <AssociationConnector Association="Model.FKFACTDEMANDETYPCLI" />
+        <AssociationConnector Association="Model.FKFACTFACTUREDEMANDE" />
+        <AssociationConnector Association="Model.FKFACTPIECEJOINTEDEM" />
+        <AssociationConnector Association="Model.FKFACTSITEENSEIGNE" />
+        <AssociationConnector Association="Model.FKOTOPACHETEUREENSEIGNE" />
+        <AssociationConnector Association="Model.FKOTOPVENDEURENSEIGNE" />
+        <AssociationConnector Association="Model.FKFACTPIECEJOINTEFACT" />
+        <AssociationConnector Association="Model.FKFACTFACTFACTURESCLIENTINT" />
+        <AssociationConnector Association="Model.FKFACTFACTFACTURESTYPCLI" />
+        <AssociationConnector Association="Model.FKFACTFACTUREFACTURE" />
+        <AssociationConnector Association="Model.FKFACTFACTURESITE" />
+        <AssociationConnector Association="Model.FKFACTFACTURESTYPE" />
+        <AssociationConnector Association="Model.FKFACTUSERSITE" />
+        <AssociationConnector Association="Model.FKFACTTYPECATEG" />
+        <AssociationConnector Association="Model.FKOTOPFACTURESTYPE" />
+        <AssociationConnector Association="Model.FKOTOPFACTUREACH" />
+        <AssociationConnector Association="Model.FKOTOPFACTUREDETENT" />
+        <AssociationConnector Association="Model.FKOTOPFACTUREVEND" />
+        <AssociationConnector Association="Model.FACTASSOGROUPEINTERFACE" />
+        <AssociationConnector Association="Model.FACTASSOGROUPUSER" />
+        <AssociationConnector Association="Model.FACTASSOUSERFACTTYPE" />
+        <AssociationConnector Association="Model.FACTASSOUSERSITE" />
+        <AssociationConnector Association="Model.OTOPASSOGROUPUSER" />
+        <EntityTypeShape EntityType="Model.FACTIMPORTXLSX" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="Model.OTOPACRTRANS" Width="1.5" PointX="23.375" PointY="0.75" />
+        <EntityTypeShape EntityType="Model.FACTDEMANDESTATUS" Width="1.5" PointX="6" PointY="36.125" />
+        <EntityTypeShape EntityType="Model.FACTFACTURESTATUS" Width="1.5" PointX="3.375" PointY="5" />
+        <AssociationConnector Association="Model.FKFACTDEMANDESTATUS" />
+        <AssociationConnector Association="Model.FKFACTFACTURESTATUS" />
+        <AssociationConnector Association="Model.FKOTOPFACTURESTATUS" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

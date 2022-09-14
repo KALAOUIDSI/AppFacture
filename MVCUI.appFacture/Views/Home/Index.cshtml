@@ -1,0 +1,78 @@
+﻿@{
+    ViewBag.Title = "Accueil";
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            Gestion des factures
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="@Url.Action("Index")">
+                    Accueil
+                </a>
+            </li>
+            <li class="pull-right">
+                <div id="dashboard-report-range" class="dashboard-date-range tooltips" data-placement="top" style="display: block; cursor: default">
+                    <i class="fa fa-calendar"></i>
+                    <span>@DateTime.Now.ToString("dd MMMM yyyy")</span>
+                </div>
+            </li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<div class="row">
+    @if (User.IsInRole("DEMANDE"))
+    {
+        @Html.Action("DemandeRaccourci")
+    }
+    @if (User.IsInRole("FACTURE"))
+    {
+        @Html.Action("FactureRaccourci")
+    }
+    @if (User.IsInRole("UTILISATEUR"))
+    {
+        @Html.Action("UtilisateurRaccourci")
+    }
+    @if (User.IsInRole("SITE"))
+    {
+        @Html.Action("SiteRaccourci")
+    }
+    @if (User.IsInRole("TYPEFACTURE"))
+    {
+        @Html.Action("FacttypeRaccourci")
+    }
+    @if (User.IsInRole("ENSEIGNE"))
+    {
+        @Html.Action("EnseigneRaccourci")
+    }
+    @if(User.IsInRole("OTOPFACT"))
+    {
+        @Html.Action("OtopFactureRaccourci")
+    }
+    @if (User.IsInRole("REPORTING"))
+    {
+        @Html.Action("ReportingRaccourci")
+    }
+    
+</div>
+
+@section Styles
+{
+    <style>
+        .page-content .page-breadcrumb.breadcrumb > li > a,
+        .page-content .page-breadcrumb.breadcrumb > li > i,
+        .page-content .page-breadcrumb.breadcrumb > li > span {
+            color: #000;
+        }
+
+        .page-content .page-breadcrumb.breadcrumb > li > i {
+            color: #000;
+        }
+    </style>
+}

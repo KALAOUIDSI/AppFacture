@@ -1,0 +1,274 @@
+﻿@model appFacture.Models.FacttypeListView
+
+@{
+    ViewBag.Title = "Types factures";
+}
+<div class="row">
+    <div class="col-md-12">
+        <ul class="page-breadcrumb breadcrumb" style="margin-top: 0px; margin-bottom: 2px; padding-left: 0px; padding-right: 0px;">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="@Url.Action("Index", "Home")">
+                    Accueil
+                </a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <i class="fa fa-suitcase"></i>
+                <a href="@Url.Action("Index")">
+                    Type factures
+                </a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="portlet box yellow">
+    <div class="portlet-title" style="padding-top: 0px;">
+        @*<div class="caption">
+            <i class="fa fa-suitcase"></i>Types factures
+        </div>*@
+    </div>
+    <div class="portlet-body">
+        <div id="sample_1_wrapper" class="dataTables_wrapper" role="grid">
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <div class="dataTables_filter" id="sample_1_filter">
+                        @using (Html.BeginForm("Index", "Facttype", FormMethod.Get, new { style = "display:inline" }))
+                        {
+                            <label>
+                                <input id="search" name="search" type="text" placeholder = "Rechercher" class="form-control input input-inline" value="@Model.Search"></label>
+                            <a href="#" title="Rechercher" class="btn submitSearch default dark">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        }
+                        <a href="#" title="Recherche avancée" class="btn advSearchBtn default yellow"><i class="fa fa-search-plus"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div style="float: right">
+                        <a href="@Url.Action("Create")" class="btn yellow"><i class="fa fa-pencil"></i>Ajouter un nouveau chapitre
+                        </a>
+
+                    </div>
+                </div>
+
+            </div>
+            
+                <div class="table-scrollable">
+                    <table class="table table-striped table-bordeyellow table-hover dataTable" id="sample_1" aria-describedby="sample_1_info">
+                        <thead>
+                            <tr role="row">
+                                <th class="sorting_disabled" role="columnheader" style="width: 26px;">#</th>
+                                <th class="@(Model.SortBy == 1 ? (Model.IsAsc ? "sorting_asc" : "sorting_desc") : "sorting")" rel="@Url.Action("Index", new { advSearch=Model.AdvSearch, search=Model.Search, sortby = 1, isasc = (Model.SortBy == 1 ? (Model.IsAsc ? false : true) : true) })" title="Type de facture">Type de facture</th>
+                                @*<th class="@(Model.SortBy == 2 ? (Model.IsAsc ? "sorting_asc" : "sorting_desc") : "sorting")" rel="@Url.Action("Index", new { advSearch=Model.AdvSearch, search=Model.Search, sortby = 2, isasc = (Model.SortBy == 2 ? (Model.IsAsc ? false : true) : true) })" title="Compte">Compte</th>*@
+                                <th title="Actions">Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr role="row" class="filter @if(Model.AdvSearch==""){<text>display-hide</text>}">
+                                <td rowspan="1" colspan="1"></td>
+                                <td rowspan="1" colspan="1">
+                                    <input type="text" class="form-control form-filter input-sm" value="@Model.AdvSearchFilters.libelle" name="libelle">
+                                </td>
+                                @*<td rowspan="1" colspan="1">
+                                    <input type="text" class="form-control form-filter input-sm" value="@Model.AdvSearchFilters.compte" name="compte">
+                                </td>*@
+                                <td>
+                                    <div class="margin-bottom-5">
+                                        @using (Html.BeginForm("Index", "Facttype", FormMethod.Get, new { style = "display:inline" }))
+                                        {
+                                            @Html.Hidden("advSearch", "")
+                                            <button class="btn btn-sm yellow filter-submit margin-bottom"><i class="fa fa-search"></i> Rechercher</button>
+                                        }
+                                    </div>
+                                    <a class="btn default" href="@Url.Action("Index")"><i class="fa fa-times"></i> Annuler</a>
+                                </td>
+                            </tr>
+                            @if (!Model.Types.Any())
+                            {
+                            <tr>
+                                <td colspan="4">
+                                    <h3>Aucun élement trouvé !</h3>
+                                </td>
+                            </tr>
+                            }
+                            else
+                            {
+                                foreach (var item in Model.Types)
+                            {
+                                <tr>
+
+                                    <td class="highlight">
+                                        <div class="success">
+                                        </div>
+                                        @item.IDFACTTYPE
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink(item.LIBELLE, "Edit", new { id = item.IDFACTTYPE })
+                                    </td>
+                                    @*<td>
+                                        @item.COMPTE
+                                    </td>*@
+                                    <td>
+                                        <a href="@Url.Action("View", new { id = item.IDFACTTYPE })" title="Visualiser" class="btn default yellow">
+                                            <i class="fa fa-eye"></i>
+                                        </a>
+                                        <a href="@Url.Action("Edit", new { id = item.IDFACTTYPE })" title="Modifier" class="btn default purple">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+
+                                        @using (Html.BeginForm("Delete", "Facttype", FormMethod.Post, new { style = "display:inline" }))
+                                        {
+                                            @Html.Hidden("id", item.IDFACTTYPE)
+                                            <a href="#" title="Supprimer" class="btn submitDelete default black">
+                                                <i class="fa fa-trash-o"></i>
+                                            </a>
+                                        }
+
+                                    </td>
+                                </tr>
+        
+                            }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-sm-12">
+                        @if (@Model.PagingInfo.TotalItems>0) {
+                        <div class="well" style="margin-top: 10px;padding: 6px 12px;">
+								<span>@Model.PagingInfo.TotalItems @(Model.PagingInfo.TotalItems>1?"éléments":"élément")</span> <span style="float:right">Page @Model.PagingInfo.CurrentPage / @Model.PagingInfo.TotalPages</span>
+					    </div>
+                        }
+                    </div>
+                    <div class="col-md-9 col-sm-12">
+                        @if (@Model.PagingInfo.TotalItems>0) {
+                        <div class="dataTables_paginate paging_bootstrap">
+                            <ul class="pagination" style="visibility: visible;">
+                                @Html.PageLinks(Model.PagingInfo, pageNum => Url.Action("Index", new { page = pageNum, advSearch=Model.AdvSearch, search = Model.Search, sortby = Model.SortBy, isasc = Model.IsAsc }))
+                            </ul>
+                        </div>
+                        }
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div style="float: right">
+                            <a href="@Url.Action("Create")" class="btn yellow"><i class="fa fa-pencil"></i>Ajouter un nouveau chapitre
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+    <script>
+        jQuery(document).ready(function () {
+            $('.submitDelete').click(function (e) {
+                if (confirm('Voulez vous vraiment supprimer ce type facture ?')) {
+                    $(this).parent().submit();
+                }
+            });
+            $('.submitSearch').click(function (e) {
+                $(this).parent().submit();
+            });
+            $('.sorting, .sorting_asc, .sorting_desc').click(function (e) {
+                location.href = $(this).attr('rel');
+            });
+            $('.advSearchBtn').click(function (e) {
+                $('.filter').toggleClass('display-hide');
+                $(this).html(function (i, html) {
+                    return html === '<i class="fa fa-search-plus"></i>' ? '<i class="fa fa-search-minus"></i>' : '<i class="fa fa-search-plus"></i>';
+                });
+            });
+            $('.filter-submit').click(function (e) {
+                var loginForm = $('.form-filter').serializeArray();
+                var loginFormObject = {};
+                $.each(loginForm, function (i, v) {
+                    if (v.value != "" && v.value != "-1")
+                        loginFormObject[v.name] = v.value;
+                });
+                $('#advSearch').val(JSON.stringify(loginFormObject));
+            });
+            @if (TempData["message"] != null)
+            {
+            <text>
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "positionClass": "toast-top-right",
+                "onclick": null,
+                "showDuration": "1000",
+                "hideDuration": "1000",
+                "timeOut": "3000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+            </text>
+            }
+            @if (TempData["state"] != null && TempData["message"] != null)
+            {
+                if (TempData["success"] == "true")
+                {
+                    if (TempData["state"] == "1")
+                    {
+                   <text>
+            toastr.success("@TempData["message"]", "Insertion");
+                   </text>
+                    }
+                    else if (TempData["state"] == "2")
+                    {
+                   <text>
+            toastr.success("@TempData["message"]", "Modification");
+                   </text>
+                    }
+                    else if (TempData["state"] == "3")
+                    {
+                   <text>
+            toastr.success("@TempData["message"]", "Suppression");
+                   </text>
+                    }
+                }
+                else if (TempData["success"] == "false")
+                {
+                    if (TempData["state"] == "1")
+                    {
+                   <text>
+            toastr.error("@TempData["message"]", "Insertion");
+                   </text>
+                    }
+                    else if (TempData["state"] == "2")
+                    {
+                   <text>
+            toastr.error("@TempData["message"]", "Modification");
+                   </text>
+                    }
+                    else if (TempData["state"] == "3")
+                    {
+                   <text>
+            toastr.error("@TempData["message"]", "Suppression");
+            </text>
+                    }
+                }
+            }
+        });
+    </script>
+}
+@section Styles
+{
+    <style>
+        .page-content .page-breadcrumb.breadcrumb {
+            background-color: #ffb848;
+        }
+    </style>
+}

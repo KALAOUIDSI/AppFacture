@@ -1,0 +1,146 @@
+﻿@model Domain.appFacture.FACTSITE
+
+@{
+    ViewBag.Title = "Magasin : Visualiser";
+}
+@*<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="@Url.Action("Index","Home")">Accueil
+                </a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="@Url.Action("Index")">Magasins
+                </a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>*@
+<div class="row">
+    <div class="col-md-12">
+        <ul class="page-breadcrumb breadcrumb" style="margin-top: 0px; margin-bottom: 2px; padding-left: 0px; padding-right: 0px;">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="@Url.Action("Index", "Home")">
+                    Accueil
+                </a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="@Url.Action("Index")">
+                    Sites
+                </a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <i class="fa fa-bars"></i>
+                <a href="#">
+                    Site <small>Visualiser</small>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="portlet box purple">
+    <div class="portlet-title" style="padding-top: 0px;">
+        @*<div class="caption">
+            <i class="fa fa-reorder"></i>
+            Magasin <small>Visualiser</small>
+        </div>*@
+    </div>
+
+    <div class="portlet-body form">
+        <div class="EditForm form-horizontal">
+            <div class="form-body">
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Nom du magasin</label>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(c => c.LIBELLESITE, new { @class = "form-control", @readonly = "readonly"})
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Enseigne</label>
+                    <div class="col-md-4">
+                        @Html.TextBox("LIBELLEENSEIGNE", Model.FACTENSEIGNE.LIBELLEENSEIGNE, new { @class = "form-control",@readonly = "readonly" })
+                    </div>
+                </div>
+                @*<div class="form-group">
+                    <label class="col-md-3 control-label">Code Gold</label>
+                    <div class="col-md-4">
+                        
+                            @Html.TextBoxFor(c => c.CODEGOLD, new { @class = "form-control", @readonly = "readonly" })
+                        
+                    </div>
+                </div>*@
+                <div class="form-group last">
+                    <label class="col-md-3 control-label">Code Agresso</label>
+                    <div class="col-md-4">
+                        
+                            @Html.TextBoxFor(c => c.CODEAGRESSO, new { @class = "form-control", @readonly = "readonly" })
+                        
+                    </div>
+                </div>
+
+                <div class="form-group last">
+                    <label class="col-md-3 control-label">Ana1</label>
+                    <div class="col-md-4">
+
+                        @Html.TextBoxFor(c => c.DIM1, new { @class = "form-control", @readonly = "readonly" })
+
+                    </div>
+                </div>
+
+                <div class="form-group last">
+                    <label class="col-md-3 control-label">Ana4</label>
+                    <div class="col-md-4">
+
+                        @Html.TextBoxFor(c => c.DIM4, new { @class = "form-control", @readonly = "readonly" })
+
+                    </div>
+                </div>
+
+                <div class="form-group last">
+                    <label class="col-md-3 control-label">Adresse facturation</label>
+                    <div class="col-md-4">
+                            @Html.TextBoxFor(c => c.ADRLINE1, new { @class = "form-control", @readonly = "readonly" })
+                            @Html.TextBoxFor(c => c.ADRLINE2, new { @class = "form-control", @readonly = "readonly" })
+                    </div>
+                </div>
+                @*<div class="form-group last">
+                    <label class="col-md-3 control-label">ICE</label>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(c => c.ICE, new { @class = "form-control", @readonly = "readonly" })
+                    </div>
+                </div>*@
+                @if(Model.DERNIERUTILISATEUR.HasValue) {
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Utilisateur qui a inséré ou modifié cet élément</label>
+                    <div class="col-md-4">
+                        <a target="_blank" href="/Utilisateur/View/@Model.DERNIERUTILISATEUR">Utilisateur @Model.DERNIERUTILISATEUR</a>
+                        
+                    </div>
+                </div>
+                }
+            </div>
+            <div class="form-actions fluid">
+                <div class="col-md-offset-3 col-md-9">
+                    <a href="@Url.Action("Index", new { keepFilters = true})" class="btn default">Retour</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Styles
+{
+    <style>
+        .page-content .page-breadcrumb.breadcrumb {
+            background-color: #852b99;
+        }
+    </style>
+}

@@ -1,0 +1,48 @@
+/* here you can put your own css to customize and override the theme */
+.divScroll {
+    overflow-x: scroll;
+    overflow-y: scroll;
+    height: 480px;
+}
+
+.nblfen {
+    overflow-x: scroll;
+    display: block;
+    margin: 0 0 0 0;
+}
+
+.nblfen::-webkit-scrollbar {
+    width: 18px;
+    border-radius: 20px;
+}
+
+.nblfen::-webkit-scrollbar-track {
+    border-radius: 20px;
+}
+
+.nblfen::-webkit-scrollbar-thumb {
+    width: 24px;
+    border: 5px solid #CCEEF4;
+    border-radius: 15px;
+}
+
+.page-content {
+    padding-top:5px;
+}
+
+.nfessspace {
+    margin-top: 0px;
+    margin-bottom: 2px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.page-content .page-breadcrumb.breadcrumb > li > a,
+.page-content .page-breadcrumb.breadcrumb > li > i,
+.page-content .page-breadcrumb.breadcrumb > li > span {
+    color: #fff;
+}
+
+.page-content .page-breadcrumb.breadcrumb > li > i {
+    color: #fff;
+}

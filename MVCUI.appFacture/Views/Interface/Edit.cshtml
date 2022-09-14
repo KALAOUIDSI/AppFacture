@@ -1,0 +1,115 @@
+﻿@model Domain.appFacture.FACTINTERFACE
+
+@{
+    string actionName = ViewContext.RouteData.GetRequiredString("action");
+    ViewBag.Title = "Interface : " + actionName;
+}
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="@Url.Action("Index","Home")">Accueil
+                </a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="@Url.Action("Index")">Interfaces
+                </a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<div class="portlet box blue">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-reorder"></i>
+            Interface <small>@actionName</small>
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <!-- BEGIN FORM-->
+        @using (Html.BeginForm("Edit", "Interface", FormMethod.Post, new { @class = "EditForm form-horizontal" }))
+        {
+            @Html.HiddenFor(c => c.IDINTERFACE)
+            <div class="form-body">
+                <div class="alert alert-danger display-hide">
+                    <button class="close" data-close="alert"></button>
+                    Vous avez des erreurs, merci de vérifier!
+                </div>
+                <div class="alert alert-success display-hide">
+                    <button class="close" data-close="alert"></button>
+                    Données correctes! transmission en cours!
+                </div>
+                <div class="form-group last">
+                    <label class="col-md-3 control-label">Libellé<span class="required">*</span></label>
+                    
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(c => c.LIBELLEINTERFACE, new { @class = "form-control required" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions fluid">
+                <div class="col-md-offset-3 col-md-9">
+
+                    <button type="button" class="btn submit blue">
+                        @if (actionName == "Create")
+                        {<text>Insérer</text>}
+                        else
+                        {<text>Modifier</text>}</button>
+                    <a href="@Url.Action("Index", new { keepFilters = true})" class="btn default">Annuler</a>
+
+
+
+                </div>
+            </div>
+        }
+        <!-- END FORM-->
+    </div>
+</div>
+@section Scripts
+{
+    <script type="text/javascript" src="@Url.Content("~/assets/plugins/jquery-validation/dist/jquery.validate.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/assets/plugins/jquery-validation/dist/additional-methods.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/assets/plugins/select2/select2.min.js")"></script>
+    <script>
+        jQuery(document).ready(function () {
+            
+            $('.submit').click(function (e) {
+                $('.EditForm').submit();
+            });
+
+            jQuery.extend(jQuery.validator.messages, {
+                required: "Ce champ est obligatoire.",
+                number: "Merci d'entrer un chiffre valide."
+            });
+
+            $('.EditForm').validate({
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block', // default input error message class
+                focusInvalid: false, // do not focus the last invalid input
+                ignore: "",
+                invalidHandler: function (event, validator) { //display error alert on form submit              
+                    $('.alert-success').hide();
+                    $('.alert-danger').show();
+                },
+                highlight: function (element) { // hightlight error inputs
+                    $(element)
+                        .closest('.form-group').addClass('has-error'); // set error class to the control group   
+                },
+                unhighlight: function (element) { // revert the change done by hightlight
+
+                },
+                success: function (label, element) {
+                    var icon = $(element).parent('.input-icon').children('i');
+                    $(element).closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
+                    icon.removeClass("fa-warning").addClass("fa-check");
+                }
+            });
+
+        });
+    </script>
+}

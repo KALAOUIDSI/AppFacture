@@ -1,0 +1,250 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en" class="no-js">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8" />
+    <title>Gestion des factures MARJANE : Identification</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="@Url.Content("~/assets/plugins/font-awesome/css/font-awesome.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/assets/plugins/bootstrap/css/bootstrap.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/assets/plugins/uniform/css/uniform.default.css")" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/assets/plugins/bootstrap-toastr/toastr.min.css")" />
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN PAGE LEVEL STYLES -->
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/assets/plugins/select2/select2.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/assets/plugins/select2/select2-metronic.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/assets/plugins/data-tables/DT_bootstrap.css")">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/assets/plugins/bootstrap-toastr/toastr.min.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/assets/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css")">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/assets/plugins/bootstrap-modal/css/bootstrap-modal.css")" />
+    <!-- END PAGE LEVEL SCRIPTS -->
+    <!-- BEGIN THEME STYLES -->
+    <link href="@Url.Content("~/assets/css/style-metronic.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/assets/css/style.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/assets/css/style-responsive.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/assets/css/plugins.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/assets/css/themes/default.css")" rel="stylesheet" type="text/css" id="style_color" />
+    <link href="@Url.Content("~/assets/css/pages/login.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/assets/css/custom.css")" rel="stylesheet" type="text/css" />
+    <!-- END THEME STYLES -->
+
+</head>
+<!-- BEGIN BODY -->
+<body class="login">
+    <div class="logo"></div>
+    <!-- BEGIN LOGIN -->
+    <div class="content">
+        <!-- BEGIN LOGO -->
+        <div>
+            @*<a href="@Url.Action("Index","Home")">
+                    <img src="@Url.Content("~/assets/img/logo.png")" alt="logo" style="max-height: 30px; background-color: white; margin: 6px;" />
+                </a>*@
+            <a href="@Url.Action("Index","Home")">
+                <img src="@Url.Content("~/assets/img/fact1.png")" alt="logo" style="max-height: 30px; background-color: white; margin: 6px;" />
+            </a>
+        </div>
+        <!-- END LOGO -->
+        <!-- BEGIN LOGIN FORM -->
+        @using (Html.BeginForm("login", "Home", FormMethod.Post, new { @class = "EditForm form-horizontal" }))
+        {
+            @Html.AntiForgeryToken()
+            <h3 class="form-title">Se connecter</h3>
+            <div class="alert alert-danger display-hide">
+                <button class="close" data-close="alert"></button>
+                <span>
+                    Merci d'entrer votre identifiant et mot de passe.
+                </span>
+            </div>
+            <div class="form-group">
+
+                <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                <label class="control-label visible-ie8 visible-ie9">Identifiant</label>
+                <div class="input-icon">
+                    <i class="fa fa-user"></i>
+                    <input class="form-control required placeholder-no-fix Login" type="text" placeholder="Identifiant" name="Login" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label visible-ie8 visible-ie9">Mot de passe</label>
+                <div class="input-icon">
+                    <i class="fa fa-lock"></i>
+                    <input class="form-control required placeholder-no-fix Password" type="password" placeholder="Mot de passe" name="Password" />
+                </div>
+            </div>
+
+            <div class="siteModal hidden" title="choose site">
+                <div class="form-group">
+                    <label class="control-label visible-ie8 visible-ie9">Site</label>
+                    <div class="input-icon">
+                        @Html.DropDownList("IDSITE", new List<SelectListItem>(), new { @class = "form-control form-filter site input-sm" })
+
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-actions">
+                @*<label class="checkbox">
+                        <input type="checkbox" name="remember" value="1" />
+                        Se rappeler de moi
+                    </label>*@
+                <button type="submit" class="btn green pull-right submit">
+                    Se connecter <i class="m-icon-swapright m-icon-white"></i>
+                </button>
+            </div>
+
+        }
+        <!-- END LOGIN FORM -->
+
+    </div>
+    <!-- END LOGIN -->
+    <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+    <!-- BEGIN CORE PLUGINS -->
+    <!--[if lt IE 9]>
+    <script src="@Url.Content("~/assets/plugins/respond.min.js")"></script>
+    <script src="@Url.Content("~/assets/plugins/excanvas.min.js")"></script>
+    <![endif]-->
+    <script src="@Url.Content("~/assets/plugins/jquery-1.10.2.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/assets/plugins/jquery-migrate-1.2.1.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/assets/plugins/bootstrap/js/bootstrap.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/assets/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/assets/plugins/jquery.blockui.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/assets/plugins/jquery.cokie.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/assets/plugins/uniform/jquery.uniform.min.js")" type="text/javascript"></script>
+    <!-- END CORE PLUGINS -->
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <script src="@Url.Content("~/assets/plugins/jquery-validation/dist/jquery.validate.min.js")" type="text/javascript"></script>
+    <script type="text/javascript" src="@Url.Content("~/assets/plugins/jquery-validation/dist/additional-methods.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/assets/plugins/select2/select2.min.js")"></script>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script src="@Url.Content("~/assets/plugins/bootstrap-toastr/toastr.min.js")"></script>
+    <script src="@Url.Content("~/assets/scripts/custom/ui-toastr.js")"></script>
+    <script src="@Url.Content("~/assets/scripts/core/app.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/assets/scripts/custom/login.js")" type="text/javascript"></script>
+    @*<script type="text/javascript" src="@Url.Content("~/assets/plugins/bootstrap-modal/js/bootstrap-modalmanager.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/assets/plugins/bootstrap-modal/js/bootstrap-modal.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/assets/scripts/custom/ui-extended-modals.js")"></script>*@
+    <!-- END PAGE LEVEL SCRIPTS -->
+    <script>
+        jQuery(document).ready(function () {
+            App.init();
+
+            jQuery.extend(jQuery.validator.messages, {
+                required: ""
+            });
+            $('.submit').click(function (e) {
+                e.preventDefault();
+                if ($('.site').val() != null && $('.site').val() != -1) {
+                    $('.EditForm').submit();
+                }
+                else {
+                    $.ajax({
+                        type: "POST",
+                        url: "@Url.Action("isMultiSites","Home")",
+                        content: "application/text; charset=utf-8",
+                        data: { Login: $('.Login').val(), Password: $('.Password').val() },
+                        success: function (d) {
+                            if (d == "True") {
+                                $('.siteModal').removeClass("hidden");
+                                $('.Login').attr('readonly', true);
+                                $('.Login').addClass('input-disabled');
+                                $('.Password').attr('readonly', true);
+                                $('.Password').addClass('input-disabled');
+                                $.ajax({
+                                    type: "POST",
+                                    url: "@Url.Action("refreshSite","Home")",
+                                    content: "application/json; charset=utf-8",
+                                    dataType: "json",
+                                    data: { Login: $('.Login').val() },
+                                    success: function (d) {
+                                        $('.site').html(' ');
+                                        $.each(d, function (i, val) {
+                                            $('.site').append($('<option>').text(val.libelle).attr('value', val.Code));
+                                        });
+                                    },
+                                    error: function (xhr, textStatus, errorThrown) {
+                                        // TODO: Show error
+                                        alert('Erreur réseau : merci de réessayer');
+                                    }
+                                });
+                                //$('.EditForm').submit();
+                            }
+                            else
+                                $('.EditForm').submit();
+
+                        },
+                        error: function (xhr, textStatus, errorThrown) {
+                            // TODO: Show error
+                            alert('Erreur réseau : merci de réessayer=' + errorThrown);
+                        }
+
+                    });
+                }
+            });
+
+            $('.EditForm').validate({
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block', // default input error message class
+                focusInvalid: false, // do not focus the last invalid input
+                ignore: "",
+                invalidHandler: function (event, validator) { //display error alert on form submit
+                    $('.alert-success').hide();
+                    $('.alert-danger').show();
+                },
+                highlight: function (element) { // hightlight error inputs
+                    $(element)
+                        .closest('.form-group').addClass('has-error'); // set error class to the control group
+                },
+                unhighlight: function (element) { // revert the change done by hightlight
+
+                },
+                success: function (label, element) {
+                    var icon = $(element).parent('.input-icon').children('i');
+                    //$(element).closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
+                    //icon.removeClass("fa-warning").addClass("fa-check");
+                }
+            });
+            @if (Html.ValidationSummary(true) != null)
+            {
+            <text>
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "positionClass": "toast-top-right",
+                "onclick": null,
+                "showDuration": "1000",
+                "hideDuration": "1000",
+                "timeOut": "3000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+            toastr.error("@TempData["message"]", "Erreur");
+            </text>
+            }
+
+            //UIExtendedModals.init();
+
+
+        });
+    </script>
+    <!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

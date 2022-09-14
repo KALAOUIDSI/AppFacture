@@ -1,0 +1,70 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32630.194
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{60FBC524-1C5D-405E-8D6A-09CE0337885A}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.appFacture", "Domain.appFacture\Domain.appFacture.csproj", "{09D4DA32-16DC-4DDA-8740-16E68B481D3C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{37E3E861-6E6C-4505-9A8D-3BE6A1F6472F} = {37E3E861-6E6C-4505-9A8D-3BE6A1F6472F}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVCUI.appFacture", "MVCUI.appFacture\MVCUI.appFacture.csproj", "{983B9E98-7A21-4BA4-A743-8D05D5B2F255}"
+	ProjectSection(ProjectDependencies) = postProject
+		{09D4DA32-16DC-4DDA-8740-16E68B481D3C} = {09D4DA32-16DC-4DDA-8740-16E68B481D3C}
+		{37E3E861-6E6C-4505-9A8D-3BE6A1F6472F} = {37E3E861-6E6C-4505-9A8D-3BE6A1F6472F}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AGRESSOAPI", "AGRESSOAPI\AGRESSOAPI.csproj", "{37E3E861-6E6C-4505-9A8D-3BE6A1F6472F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		CD_ROM|Any CPU = CD_ROM|Any CPU
+		Debug|Any CPU = Debug|Any CPU
+		DVD-5|Any CPU = DVD-5|Any CPU
+		Release|Any CPU = Release|Any CPU
+		SingleImage|Any CPU = SingleImage|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{09D4DA32-16DC-4DDA-8740-16E68B481D3C}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
+		{09D4DA32-16DC-4DDA-8740-16E68B481D3C}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
+		{09D4DA32-16DC-4DDA-8740-16E68B481D3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09D4DA32-16DC-4DDA-8740-16E68B481D3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09D4DA32-16DC-4DDA-8740-16E68B481D3C}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{09D4DA32-16DC-4DDA-8740-16E68B481D3C}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
+		{09D4DA32-16DC-4DDA-8740-16E68B481D3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09D4DA32-16DC-4DDA-8740-16E68B481D3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09D4DA32-16DC-4DDA-8740-16E68B481D3C}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
+		{09D4DA32-16DC-4DDA-8740-16E68B481D3C}.SingleImage|Any CPU.Build.0 = Release|Any CPU
+		{983B9E98-7A21-4BA4-A743-8D05D5B2F255}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
+		{983B9E98-7A21-4BA4-A743-8D05D5B2F255}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
+		{983B9E98-7A21-4BA4-A743-8D05D5B2F255}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{983B9E98-7A21-4BA4-A743-8D05D5B2F255}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{983B9E98-7A21-4BA4-A743-8D05D5B2F255}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{983B9E98-7A21-4BA4-A743-8D05D5B2F255}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
+		{983B9E98-7A21-4BA4-A743-8D05D5B2F255}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{983B9E98-7A21-4BA4-A743-8D05D5B2F255}.Release|Any CPU.Build.0 = Release|Any CPU
+		{983B9E98-7A21-4BA4-A743-8D05D5B2F255}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
+		{983B9E98-7A21-4BA4-A743-8D05D5B2F255}.SingleImage|Any CPU.Build.0 = Release|Any CPU
+		{37E3E861-6E6C-4505-9A8D-3BE6A1F6472F}.CD_ROM|Any CPU.ActiveCfg = Debug|Any CPU
+		{37E3E861-6E6C-4505-9A8D-3BE6A1F6472F}.CD_ROM|Any CPU.Build.0 = Debug|Any CPU
+		{37E3E861-6E6C-4505-9A8D-3BE6A1F6472F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37E3E861-6E6C-4505-9A8D-3BE6A1F6472F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37E3E861-6E6C-4505-9A8D-3BE6A1F6472F}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{37E3E861-6E6C-4505-9A8D-3BE6A1F6472F}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
+		{37E3E861-6E6C-4505-9A8D-3BE6A1F6472F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37E3E861-6E6C-4505-9A8D-3BE6A1F6472F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37E3E861-6E6C-4505-9A8D-3BE6A1F6472F}.SingleImage|Any CPU.ActiveCfg = Debug|Any CPU
+		{37E3E861-6E6C-4505-9A8D-3BE6A1F6472F}.SingleImage|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2D765223-6DCF-4F21-99DC-8A7C311AC21F}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,278 @@
+﻿@model Domain.appFacture.FACTUSER
+
+@{
+    string actionName = ViewContext.RouteData.GetRequiredString("action");
+    ViewBag.Title = "Utilisateur : " + actionName;
+}
+@*<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="@Url.Action("Index","Home")">Accueil
+                </a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="@Url.Action("Index")">Utilisateurs
+                </a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>*@
+<div class="row">
+    <div class="col-md-12">
+        <ul class="page-breadcrumb breadcrumb" style="margin-top: 0px; margin-bottom: 2px; padding-left: 0px; padding-right: 0px;">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="@Url.Action("Index", "Home")">
+                    Accueil
+                </a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="@Url.Action("Index")">
+                    Utilisateurs
+                </a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <i class="fa fa-reorder"></i>
+                <a href="#">
+                    Utilisateur <small>@actionName</small>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="portlet box green">
+    <div class="portlet-title" style="padding-top: 0px;">
+        @*<div class="caption">
+            <i class="fa fa-reorder"></i>
+            Utilisateur <small>@actionName</small>
+        </div>*@
+    </div>
+    <div class="portlet-body form">
+        <!-- BEGIN FORM-->
+        @using (Html.BeginForm("ValidateEdit", "Utilisateur", FormMethod.Post, new { @class = "EditForm form-horizontal" }))
+        {
+            @Html.HiddenFor(c => c.IDUTILISATEUR)
+            <div class="form-body">
+                <div class="alert alert-danger display-hide">
+                    <button class="close" data-close="alert"></button>
+                    Vous avez des erreurs, merci de vérifier!
+                </div>
+                <div class="alert alert-success display-hide">
+                    <button class="close" data-close="alert"></button>
+                    Données correctes! transmission en cours!
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Nom<span class="required">*</span></label>
+                    
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(c => c.NOM, new { @class = "form-control required" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Prénom<span class="required">*</span></label>
+                    
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(c => c.PRENOM, new { @class = "form-control required" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">E-mail</label>
+                    
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(c => c.EMAIL, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Identifiant<span class="required">*</span></label>
+                    
+                    <div class="col-md-4">
+                        @Html.Hidden("OLDLOGIN",Model.LOGIN)
+                        @Html.TextBoxFor(c => c.LOGIN, new { @class = "form-control required" })
+                        @Html.Hidden("LoginValid", "1", new { @class="LoginValid"})
+                    </div>
+                </div>
+                <div class="form-group" style="display:none">
+                    <label class="col-md-3 control-label">Mot de passe<span class="required">*</span></label>
+                    
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(c => c.PASSWORD, new { @class = "form-control required" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Actif</label>
+                    <div class="col-md-4">
+                        @Html.CheckBox("ACTIF", Model.ACTIF == 1 ? true:false)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Chapitres</label>
+                    <div class="col-md-4">
+                        @Html.Hidden("selectedChapitres", "")
+                        @Html.DropDownList("Chapitres", new MultiSelectList(ViewBag.listChapitres, "IDFACTTYPE", "LIBELLE", Model.FACTTYPE.Select(n => n.IDFACTTYPE).ToArray()), null, new { @class = "form-control select2me", multiple = "multiple" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Site</label>
+                    <div class="col-md-4">
+                        @Html.Hidden("selectedSites", "")
+                        @Html.DropDownList("Sites", new MultiSelectList(ViewBag.listSites, "IDSITE", "LIBELLESITE", Model.FACTSITE1.Select(n => n.IDSITE).ToArray()), null, new { @class = "form-control select2me", multiple = "multiple" })
+                    </div>
+                </div>
+                <div class="form-group last">
+                    <label class="col-md-3 control-label">Groupes</label>
+
+                    <div class="col-md-4">
+                        @foreach (Domain.appFacture.FACTGROUPE item in ViewBag.listGroupes)
+                        {   string Checked = "";
+                            foreach (Domain.appFacture.FACTGROUPE item2 in Model.FACTGROUPE)
+                            {
+                                if (item2.IDGROUPE == item.IDGROUPE)
+                                {
+                                    Checked = "checked='checked'";
+                                    break;
+                                }
+                            }
+                            if ((bool)ViewBag.isAdmin)
+                            {
+                                Checked = "checked='checked'";
+                            }
+                            <div>
+                                <input type="checkbox" id="@item.LIBELLEGROUPE" name="checkedGroupes" @Checked value="@item.IDGROUPE"/>
+                                <span>@item.LIBELLEGROUPE</span>
+                            </div>
+                            
+                        }
+
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions fluid">
+                <div class="col-md-offset-3 col-md-9">
+
+                    <button type="button" class="btn submit green">
+                        @if (actionName == "Create")
+                        {<text>Insérer</text>}
+                        else
+                        {<text>Modifier</text>}</button>
+                    <a href="@Url.Action("Index", new { keepFilters = true})" class="btn default">Annuler</a>
+
+
+
+                </div>
+            </div>
+        }
+        <!-- END FORM-->
+    </div>
+</div>
+@section Scripts
+{
+    <script type="text/javascript" src="@Url.Content("~/assets/plugins/jquery-validation/dist/jquery.validate.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/assets/plugins/jquery-validation/dist/additional-methods.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/assets/plugins/select2/select2.min.js")"></script>
+    <script>
+        jQuery(document).ready(function () {
+            //$.validator.addMethod("valueNotEquals", function(value, element, arg){
+            //    return ($('#Magasin').is(':checked')? (arg != value && (! isNaN(arg))) : true);
+            //}, "Merci de choisir un seul magasin.");
+
+            $.validator.addMethod("loginValid", function (value, element, arg) {
+                return arg != value;
+            }, "Cet identifiant est déjà utilisé, merci de choisir un autre !");
+           
+            $('.submit').click(function (e) {
+                $('#LOGIN').trigger('change');
+                $('#selectedSites').val($('#Sites').val());
+                $('#selectedChapitres').val($('#Chapitres').val());
+                //if ($('#Commercial').is(':checked') && isNaN($('#selectedSites').val()))
+                //    alert("Merci de choisir un seul magasin.");
+                //else {
+                    if (($('#selectedSites').val() == "" | $('#selectedSites').val() == "-1"))
+                        alert("Le choix du site est obligatoire.");
+                    else
+                        $('.EditForm').submit();
+                //}
+            });
+
+            jQuery.extend(jQuery.validator.messages, {
+                required: "Ce champ est obligatoire.",
+                number: "Merci d'entrer un chiffre valide.",
+                email : "Merci de renseigner un email valide."
+            });
+            $('#LOGIN').change(function (e) {
+                var Data = $('#LOGIN').val();
+                if (Data != $('#OLDLOGIN').val() || $('#OLDLOGIN').val()=="") {
+                    $('#LOGIN').addClass('spinner');
+                    $.ajax({
+                        type: "POST",
+                        url: "@Url.Action("LoginExist","Utilisateur")",
+                        content: "application/text; charset=utf-8",
+                        data: { login: Data },
+                        success: function (d) {
+                            if (d == "True")
+                                $('#LoginValid').val(0);
+                            else
+                                $('#LoginValid').val(1);
+                            $('#LOGIN').removeClass('spinner');
+                        },
+                        error: function (xhr, textStatus, errorThrown) {
+                            // TODO: Show error
+                            //alert('Erreur réseau : merci de réessayer');
+                            $('#LOGIN').removeClass('spinner');
+                        }
+                    });
+                }
+                else
+                    $('#LoginValid').val(1);
+            });
+            $('.EditForm').validate({
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block', // default input error message class
+                focusInvalid: false, // do not focus the last invalid input
+                ignore: "",
+                rules: {
+                    LoginValid: {
+                        loginValid: "0"
+                    }
+                    
+                },
+                invalidHandler: function (event, validator) { //display error alert on form submit              
+                    $('.alert-success').hide();
+                    $('.alert-danger').show();
+                },
+                highlight: function (element) { // hightlight error inputs
+                    $(element).closest('.form-group').removeClass('has-success').addClass('has-error'); // set error class to the control group   
+                },
+                unhighlight: function (element) { // revert the change done by hightlight
+                    //$(element).closest('.form-group').removeClass('has-error').addClass('has-success'); // set error class to the control group   
+
+                },
+                success: function (label, element) {
+                    //var icon = $(element).parent('.input-icon').children('i');
+                    //$(element).closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
+                    //icon.removeClass("fa-warning").addClass("fa-check");
+                }
+            });
+            @if (TempData["message"] != null)
+            {
+                <text>alert('@Html.Raw(TempData["message"].ToString())');</text>
+            }
+
+        });
+    </script>
+}
+@section Styles
+{
+    <style>
+        .page-content .page-breadcrumb.breadcrumb {
+            background-color: #35aa47;
+        }
+    </style>
+}
